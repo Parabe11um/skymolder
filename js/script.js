@@ -45,23 +45,20 @@ if(factory){
         zone.style.cursor="pointer"
         zone.style.zIndex = 10
 
-        zone.onmouseenter=()=>{
+        zone.addEventListener("pointerdown", () => {
+            z.layer.style.opacity = 1
+        })
 
-            z.layer.style.opacity=1
-
-        }
-
-        zone.onmouseleave=()=>{
-
-            z.layer.style.opacity=0
-
-        }
+        zone.addEventListener("pointerup", () => {
+            z.layer.style.opacity = 0
+        })
 
         factory.appendChild(zone)
 
     })
 
 }
+
 
 const bubbles = document.querySelector(".bubbles")
 const text = document.querySelector(".cloud-text")
@@ -90,8 +87,6 @@ if(bubbles){
 
         let size = Math.random()*200 + 180
         bubble.style.width = size + "px"
-
-        bubble.style.width = size+"px"
         bubble.style.left = Math.random()*80 + "vw"
         bubble.style.top = Math.random()*120 + 40 + "px"
 
@@ -126,17 +121,17 @@ if (slider) {
 
     let dragging = false;
 
-    slider.addEventListener("mousedown", () => {
+    slider.addEventListener("pointerdown", () => {
         dragging = true;
         slider.style.cursor = "grabbing";
     });
 
-    document.addEventListener("mouseup", () => {
+    document.addEventListener("pointerup", () => {
         dragging = false;
         slider.style.cursor = "grab";
     });
 
-    document.addEventListener("mousemove", (e) => {
+    document.addEventListener("pointermove", (e) => {
         if (!dragging) return;
 
         const lineRect = thermoLine.getBoundingClientRect();
@@ -180,7 +175,7 @@ let shiftX = 0
 let shiftY = 0
 
 items.forEach(item => {
-    item.addEventListener("mousedown", (e) => {
+    item.addEventListener("pointerdown", (e) => {
         if (item.classList.contains("placed")) return
 
         active = item
@@ -199,23 +194,18 @@ items.forEach(item => {
         item.style.zIndex = 10
         item.style.animation = "none"
 
+        item.setPointerCapture(e.pointerId) // 🔥 ОБЯЗАТЕЛЬНО
         e.preventDefault()
     })
 })
 
-document.addEventListener("mousemove", (e) => {
-    if (!active) return
 
-    const sceneRect = scene.getBoundingClientRect()
+document.addEventListener("pointerup", () => {
 
-    active.style.left = (e.clientX - sceneRect.left - shiftX) + "px"
-    active.style.top  = (e.clientY - sceneRect.top  - shiftY) + "px"
-})
-
-document.addEventListener("mouseup", () => {
     if (!active) return
 
     zones.forEach(zone => {
+
         const z = zone.getBoundingClientRect()
         const i = active.getBoundingClientRect()
 
@@ -229,14 +219,14 @@ document.addEventListener("mouseup", () => {
             centerY < z.bottom
 
         if (overlap && active.dataset.target === zone.dataset.zone) {
+
             active.style.left = zone.offsetLeft + "px"
             active.style.top  = zone.offsetTop + "px"
-            active.style.right = "auto"
-            active.style.bottom = "auto"
 
             active.style.pointerEvents = "none"
             active.classList.add("placed")
         }
+
     })
 
     const placedNow = document.querySelectorAll(".drag-item.placed").length
@@ -248,9 +238,10 @@ document.addEventListener("mouseup", () => {
 
     active.style.zIndex = 1
     active = null
+
 })
 
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("pointermove", (e) => {
 
     if (!active) return
 
@@ -258,50 +249,6 @@ document.addEventListener("mousemove", (e) => {
 
     active.style.left = (e.clientX - sceneRect.left - shiftX) + "px"
     active.style.top  = (e.clientY - sceneRect.top  - shiftY) + "px"
-
-})
-
-document.addEventListener("mouseup", () => {
-
-    if (!active) return
-
-    zones.forEach(zone => {
-
-        const z = zone.getBoundingClientRect()
-        const i = active.getBoundingClientRect()
-
-        const centerX = i.left + i.width / 2
-        const centerY = i.top + i.height / 2
-
-        const overlap =
-            centerX > z.left &&
-            centerX < z.right &&
-            centerY > z.top &&
-            centerY < z.bottom
-
-        if (overlap && active.dataset.target === zone.dataset.zone) {
-
-            active.style.left = zone.offsetLeft + "px"
-            active.style.top  = zone.offsetTop + "px"
-
-            if (!active.classList.contains("placed")) {
-                active.style.pointerEvents = "none"
-                active.classList.add("placed")
-            }
-
-            const placedNow = document.querySelectorAll(".drag-item.placed").length
-
-            if (placedNow === 3) {
-                document.querySelector(".info1").classList.add("visible")
-                document.querySelector(".info2").classList.add("visible")
-            }
-
-        }
-
-    })
-
-    active.style.zIndex = 1
-    active = null
 
 })
 
@@ -383,10 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(rainInterval);
     }
 
-    rainCloud.addEventListener("mousedown", startRain);
-    rainCloud.addEventListener("touchstart", startRain);
-
-    window.addEventListener("mouseup", stopRain);
-    window.addEventListener("touchend", stopRain);
+    rainCloud.addEventListener("pointerdown", startRain);
+    window.addEventListener("pointerup", stopRain);
 
 });

@@ -634,6 +634,7 @@ circle{
 
 .rain-top-cloud{
     position:absolute;
+    touch-action:none;
     top:0;
     left:0;
     width:100%;
@@ -761,6 +762,29 @@ circle{
         transform:scale(.8);
     }
 
+    /* облако */
+    .rain-top-cloud{
+        height:30vh;
+    }
+
+    /* капли крупнее */
+    .raindrop{
+        width:4vw;
+    }
+
+    /* текст */
+    .rain-title{
+        font-size:32px;
+        bottom:10vh;
+    }
+
+    /* заводы меньше */
+    .factory-left,
+    .factory-right{
+        width:40vw;
+    }
+
+
 }
 
 
@@ -772,4 +796,12 @@ circle{
     }
 
 }
+
+
+.drag-item,
+.slider,
+.rain-top-cloud {
+    touch-action: none;
+}
+
 
