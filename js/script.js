@@ -85,10 +85,16 @@ if(bubbles){
 
         bubble.appendChild(img)
 
-        let size = Math.random()*200 + 180
+        const size = Math.random() * 80 + 60
         bubble.style.width = size + "px"
-        bubble.style.left = Math.random() * (window.innerWidth - size) + "px"
-        bubble.style.top = Math.random()*120 + 40 + "px"
+        bubble.style.height = size + "px"
+
+        const padding = 20
+
+        item.style.left = Math.random() * (window.innerWidth - item.offsetWidth - padding * 2) + padding + "px"
+        item.style.top  = Math.random() * (window.innerHeight - item.offsetHeight - padding * 2) + padding + "px"
+
+        bubble.style.position = "absolute"
 
         bubble.onclick = ()=>{
 
