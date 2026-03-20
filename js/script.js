@@ -87,7 +87,7 @@ if(bubbles){
 
         let size = Math.random()*200 + 180
         bubble.style.width = size + "px"
-        bubble.style.left = Math.random()*80 + "vw"
+        bubble.style.left = Math.random() * (window.innerWidth - size) + "px"
         bubble.style.top = Math.random()*120 + 40 + "px"
 
         bubble.onclick = ()=>{

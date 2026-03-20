@@ -2,6 +2,10 @@
    BASE / RESET
 ===================================================== */
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
 
 body{
     margin:0;
@@ -284,8 +288,7 @@ h2{
 
 
 .particle img{
-    width:8vw;
-    max-width:140px;
+    width:clamp(40px, 8vw, 140px);
 }
 
 .particle{
@@ -745,12 +748,26 @@ circle{
    ADAPTIVE
 ===================================================== */
 
+@media (max-width:900px){
+
+    .particle img{
+        width:8vw;
+        max-width:140px;
+    }
+
+}
+
+
 
 @media (max-width:768px){
 
     .cloud-bottom{
         width:160%;
         bottom:10%;
+    }
+
+    .particle img{
+        width:clamp(60px, 16vw, 160px);
     }
 
     .cloud-text{
@@ -788,14 +805,7 @@ circle{
 }
 
 
-@media (max-width:900px){
 
-    .particle img{
-        width:7vw;
-        max-width:90px;
-    }
-
-}
 
 
 .drag-item,
@@ -804,4 +814,7 @@ circle{
     touch-action: none;
 }
 
+.bubble {
+    touch-action: manipulation;
+}
 
