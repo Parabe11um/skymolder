@@ -45,11 +45,15 @@ if(factory){
         zone.style.cursor="pointer"
         zone.style.zIndex = 10
 
-        zone.addEventListener("pointerdown", () => {
+        zone.addEventListener("mouseenter", () => {
             z.layer.style.opacity = 1
         })
 
-        zone.addEventListener("pointerup", () => {
+        zone.addEventListener("mouseleave", () => {
+            z.layer.style.opacity = 0
+        })
+
+        zone.addEventListener("pointerleave", () => {
             z.layer.style.opacity = 0
         })
 
@@ -63,58 +67,61 @@ if(factory){
 const bubbles = document.querySelector(".bubbles")
 const text = document.querySelector(".cloud-text")
 
-if(bubbles){
+window.addEventListener("load", () => {
 
-    const images = [
-        "/img/Frame_285.png",
-        "/img/Frame_279.png",
-        "/img/Frame_277.png"
-    ]
+    if(bubbles){
 
-    let total = 12
-    let popped = 0
+        const images = [
+            "/img/Frame_285.png",
+            "/img/Frame_279.png",
+            "/img/Frame_277.png"
+        ]
 
-    for(let i=0;i<total;i++){
+        let total = 12
+        let popped = 0
 
-        let bubble = document.createElement("div")
-        bubble.className = "bubble"
+        for(let i=0;i<total;i++){
 
-        let img = document.createElement("img")
+            let bubble = document.createElement("div")
+            bubble.className = "bubble"
 
-        img.src = images[Math.floor(Math.random()*images.length)]
+            let img = document.createElement("img")
+            img.src = images[Math.floor(Math.random()*images.length)]
 
-        bubble.appendChild(img)
+            bubble.appendChild(img)
 
-        const size = Math.random() * 80 + 60
-        bubble.style.width = size + "px"
-        bubble.style.height = size + "px"
+            const size = Math.random() * 120 + 120
+            bubble.style.width = size + "px"
+            bubble.style.height = size + "px"
 
-        const padding = 20
+            const rect = bubbles.getBoundingClientRect()
+            const centerY = rect.height * 0.5
 
-        item.style.left = Math.random() * (window.innerWidth - item.offsetWidth - padding * 2) + padding + "px"
-        item.style.top  = Math.random() * (window.innerHeight - item.offsetHeight - padding * 2) + padding + "px"
+            bubble.style.left = Math.random() * (rect.width - size) + "px"
 
-        bubble.style.position = "absolute"
+            let top = centerY + (Math.random() - 0.5) * rect.height * 0.4
+            top = Math.max(0, Math.min(rect.height - size, top))
+            bubble.style.top = top + "px"
 
-        bubble.onclick = ()=>{
+            bubble.style.position = "absolute"
+            bubble.style.zIndex = 5
 
-            bubble.classList.add("pop")
+            bubble.onclick = ()=>{
+                bubble.classList.add("pop")
+                setTimeout(()=>bubble.remove(),250)
 
-            setTimeout(()=>bubble.remove(),250)
+                popped++
 
-            popped++
-
-            if(popped === total){
-                text.classList.remove("hidden")
+                if(popped === total){
+                    text.classList.remove("hidden")
+                }
             }
 
+            bubbles.appendChild(bubble)
         }
-
-        bubbles.appendChild(bubble)
-
     }
 
-}
+})
 
 const slider = document.querySelector(".slider");
 
@@ -132,7 +139,7 @@ if (slider) {
         slider.style.cursor = "grabbing";
     });
 
-    document.addEventListener("pointerup", () => {
+    document.addEventListener("pointerup", (e) => {
         dragging = false;
         slider.style.cursor = "grab";
     });
@@ -200,13 +207,12 @@ items.forEach(item => {
         item.style.zIndex = 10
         item.style.animation = "none"
 
-        item.setPointerCapture(e.pointerId) // 🔥 ОБЯЗАТЕЛЬНО
         e.preventDefault()
     })
 })
 
 
-document.addEventListener("pointerup", () => {
+document.addEventListener("pointerup", (e) => {
 
     if (!active) return
 
@@ -226,8 +232,8 @@ document.addEventListener("pointerup", () => {
 
         if (overlap && active.dataset.target === zone.dataset.zone) {
 
-            active.style.left = zone.offsetLeft + "px"
-            active.style.top  = zone.offsetTop + "px"
+            active.style.left = (zone.offsetLeft) + "px"
+            active.style.top  = (zone.offsetTop) + "px"
 
             active.style.pointerEvents = "none"
             active.classList.add("placed")
@@ -259,20 +265,19 @@ document.addEventListener("pointermove", (e) => {
 })
 
 
-document.addEventListener("DOMContentLoaded", () => {
-
     const rainCloud = document.querySelector(".rain-top-cloud");
     const rainContainer = document.querySelector(".rain-container");
 
     if(!rainCloud || !rainContainer){
         console.log("RAIN ELEMENTS NOT FOUND");
-        return;
     }
+
+if(rainCloud && rainContainer) {
 
     let raining = false;
     let rainInterval = null;
 
-    function createDrop(){
+    function createDrop() {
 
         const images = [
             "/img/Frame_291.png",
@@ -281,7 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
         const drop = document.createElement("img");
-        drop.src = images[Math.floor(Math.random()*images.length)];
+        drop.src = images[Math.floor(Math.random() * images.length)];
         drop.className = "raindrop";
 
         const cloudRect = rainCloud.getBoundingClientRect();
@@ -299,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
         drop.style.top =
             (cloudRect.top - containerRect.top + startY) + "px";
 
-        drop.style.animationDuration = (Math.random()*0.8 + 1.2) + "s";
+        drop.style.animationDuration = (Math.random() * 0.8 + 1.2) + "s";
 
         rainContainer.appendChild(drop);
 
@@ -318,25 +323,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }, 1200);
 
-        setTimeout(()=>{
+        setTimeout(() => {
             drop.remove();
-        },7000);
+        }, 7000);
 
     }
 
-    function startRain(){
-        if(raining) return;
+    function startRain() {
+        if (raining) return;
 
         raining = true;
-        rainInterval = setInterval(createDrop,45);
+        rainInterval = setInterval(createDrop, 45);
     }
 
-    function stopRain(){
+    function stopRain() {
         raining = false;
         clearInterval(rainInterval);
     }
 
-    rainCloud.addEventListener("pointerdown", startRain);
+    rainCloud.addEventListener("pointerdown", (e) => {
+        e.preventDefault()
+        startRain()
+    });
+
     window.addEventListener("pointerup", stopRain);
 
-});
+}
