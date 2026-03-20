@@ -1,0 +1,775 @@
+/* =====================================================
+   BASE / RESET
+===================================================== */
+
+
+body{
+    margin:0;
+    font-family:'IBM Plex Sans Condensed',sans-serif;
+    overflow-x:hidden;
+}
+
+.section{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+/* =====================================================
+   1 ЭКРАН
+===================================================== */
+
+.rain{
+    display:block;
+}
+
+
+.top{
+    background:linear-gradient(#071F45,#2F73BA);
+    padding:clamp(20px,4vw,40px) clamp(20px,6vw,60px);
+    position:relative;
+}
+
+h2{
+    text-align:center;
+    color:white;
+    font-weight:400;
+    margin:0;
+    font-size:clamp(28px,5vw,48px);
+}
+
+.factory{
+    bottom:clamp(20px,6vh,80px);
+    left:50%;
+    transform:translateX(-50%);
+    width:min(90vw,1400px);
+    aspect-ratio:1400/420;
+    position:relative;
+    z-index:1;
+}
+
+
+.hero-brand{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    font-family:'IBM Plex Sans Condensed', sans-serif;
+    font-weight:700;
+    font-size:clamp(80px, 18vw, 300px);
+    color:#1B2B6B;
+    opacity:0.25;
+    white-space:nowrap;
+    pointer-events:none;
+
+}
+
+
+.factory-base{
+    position:absolute;
+    bottom:0;
+    left:0;
+    max-width:100%;
+    height:auto;
+    z-index:1;
+}
+
+.factory-part{
+    position:absolute;
+    bottom:0;
+    left:0;
+
+    width:100%;
+    height:auto;
+
+    z-index:3;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:0.25s;
+}
+
+.shop{
+    position:absolute;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.shop:hover{
+    filter:brightness(.55);
+}
+
+.shop1{
+    left:120px;
+    bottom:0;
+    width:200px;
+}
+
+.shop2{
+    left:460px;
+    bottom:0;
+    width:450px;
+}
+
+.shop3{
+    left:970px;
+    bottom:0;
+    width:220px;
+}
+
+.shop img{
+    width:100%;
+    display:block;
+}
+
+.part-281{
+    bottom:-22.8%;
+    left:29%;
+}
+
+.part-280{
+    bottom:-61.9%;
+    left:47.8%;
+}
+
+.part-278{
+    bottom:8.1%;
+    left:-7.7%;
+}
+
+/* =====================================================
+   2 ЭКРАН (CLOUDS / BUBBLES)
+===================================================== */
+
+.clouds{
+    background:linear-gradient(#2D6EB4,#5FB6EB);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:start;
+    align-items:center;
+}
+
+
+.cloud-strip{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:80px;
+
+    background:#0B2953;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+
+    padding-right:60px;
+}
+
+.cloud-strip span{
+    color:white;
+    font-size:40px;
+}
+
+.bubbles{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:45%;
+    z-index:3;
+}
+
+
+.bubble{
+    position:absolute;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.bubble img{
+    width:100%;
+    pointer-events:none;
+}
+
+
+.bubble.pop{
+    transform:scale(1.6);
+    opacity:0;
+}
+
+
+
+.cloud-text{
+    position:relative;
+    z-index:5;
+    width:600px;
+    color:white;
+    font-size:24px;
+    line-height:1.4;
+}
+
+.hidden{
+    opacity:0;
+}
+
+.cloud-bottom{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:auto;
+    z-index:1;
+    pointer-events:none;
+}
+
+/* =====================================================
+   3–4 ЭКРАН (FREEZE + DRAG)
+===================================================== */
+
+.freeze{
+    background: linear-gradient(#5CB1E8, #A0DAFF);
+    padding-top: 80px;
+    overflow: hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+}
+
+.freeze-strip{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #0B2953;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    box-sizing: border-box;
+    z-index: 5;
+    justify-content: center;
+}
+
+.freeze-strip span{
+    color: white;
+    font-size: 40px;
+    line-height: 1;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    text-transform: lowercase;
+}
+
+.freeze-content{
+    display:grid;
+
+    grid-template-columns: 1fr minmax(100px, 15vw);
+
+    width:100%;
+    height:calc(100vh - 80px);
+}
+
+.freeze-field{
+    position:relative;
+    width:100%;
+    height:100%;
+    padding:6vw;
+    max-width:900px;
+    margin-left:auto;
+}
+
+
+.particle img{
+    width:8vw;
+    max-width:140px;
+}
+
+.particle{
+    position:absolute;
+}
+
+.drop,
+.snow{
+    position:absolute;
+    transition:0.4s;
+}
+.freeze-drop{
+    width:140px;
+}
+
+.freeze-snow{
+    width:160px;
+}
+
+
+.p1{ left:8%; top:12%; }
+.p2{ left:38%; top:8%; }
+.p3{ left:45%; top:22%; }
+.p4{ left:18%; top:40%; }
+.p5{ left:50%; top:52%; }
+.p6{ left:54%; top:18%; }
+
+
+.thermometer{
+    background:#153661;
+    border-left:4px solid white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:3vw;
+    position:relative;
+    z-index:5;
+    justify-self:end;
+    width:100%;
+    max-width:320px;
+}
+
+.thermo-inner{
+    position: relative;
+    width:80%;
+    height:90%;
+    border: 4px solid white;
+    box-sizing: border-box;
+}
+
+.thermo-line{
+    position: absolute;
+    top: 56px;
+    bottom: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    background: #F2F2F2;
+}
+
+.thermo-scale{
+    position: absolute;
+    inset: 0;
+    color: white;
+    font-size: 28px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    pointer-events: none;
+}
+
+.tminus{
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tzero{
+    position: absolute;
+    top: 50%;
+    right: 54px;
+    transform: translateY(-50%);
+}
+
+.tplus{
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.slider{
+    position: absolute;
+    left: 50%;
+    bottom: 70px;
+    transform: translateX(-50%);
+    width: 88px;
+    height: 26px;
+    background: #6266E3;
+    border-radius: 0;
+    cursor: grab;
+    z-index: 3;
+}
+
+
+.freeze-field.frozen .drop{
+    opacity:0;
+}
+
+.freeze-field.frozen .snow{
+    opacity:1;
+}
+
+
+.fragments{
+    background:linear-gradient(#9DD9FE,#D9EFFF);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+
+.rain-strip{
+    background:#99ABFA;
+    height:80px;
+    width: 100%;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+}
+
+.rain-marquee{
+    white-space:nowrap;
+    color:white;
+    font-size:40px;
+    font-family:'IBM Plex Sans Condensed';
+    animation:marquee 12s linear infinite;
+}
+
+@keyframes marquee{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+}
+
+
+/* =====================================================
+   DRAG & INFO
+===================================================== */
+
+.cloud-scene{
+    position:relative;
+    width:100%;
+    max-width:1400px;
+    height:calc(100vh - 80px);
+    margin:auto;
+}
+
+.drag-item{
+    position:absolute;
+    width:12vw;
+    max-width:220px;
+    cursor:grab;
+    z-index:5;
+}
+
+@keyframes floatBox{
+    0%{transform:rotate(-2deg)}
+    50%{transform:rotate(2deg)}
+    100%{transform:rotate(-2deg)}
+}
+
+
+.drop-zone{
+    position:absolute;
+
+    width:14vw;
+    height:14vw;
+
+    max-width:200px;
+    max-height:200px;
+
+    border:3px solid black;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-family:'IBM Plex Sans Condensed';
+    font-size:clamp(16px,1.5vw,28px);
+
+    text-align:center;
+    z-index:4;
+}
+
+.zone-layers{
+    left:35%;
+    top:20%;
+}
+
+.zone-drops{
+    right:20%;
+    top:35%;
+}
+
+.zone-surface{
+    left:30%;
+    bottom:15%;
+}
+
+.drag1{ left:5%; top:15%; }
+.drag2{ left:6%; bottom:10%; }
+.drag3{ right:5%; bottom:10%; }
+
+[data-zone="layers"]{left:420px;top:140px;}
+[data-zone="drops"]{right:360px;top:280px;}
+[data-zone="surface"]{left:360px;bottom:120px;}
+
+
+.info-box{
+    position:absolute;
+    width:420px;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    font-size:20px;
+    opacity:0;
+    transition:0.4s;
+}
+
+.info1{
+    right:8%;
+    top:18%;
+}
+
+.info2{
+    left:20%;
+    top:45%;
+}
+
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    border:2px solid white;
+    opacity:.5;
+    animation:circleFloat 8s linear infinite;
+    width:4vw;
+    height:4vw;
+    max-width:40px;
+    max-height:40px;
+}
+
+@keyframes circleFloat{
+    from{transform:translateY(0)}
+    to{transform:translateY(-120px)}
+}
+
+
+circle{
+    position:absolute;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:white;
+    opacity:.5;
+    animation:circleFloat 6s ease-in-out infinite;
+}
+
+.c1{ left:55%; top:30%; animation-delay:0s }
+.c2{ left:60%; top:40%; animation-delay:1s }
+.c3{ left:50%; top:45%; animation-delay:2s }
+.c4{ left:65%; top:35%; animation-delay:3s }
+
+@keyframes circleFloat{
+    0%{ transform:translateY(0) }
+    50%{ transform:translateY(-25px) }
+    100%{ transform:translateY(0) }
+}
+
+
+.drag-item{
+    animation:floatBox 3s ease-in-out infinite;
+    z-index:5;
+
+}
+
+.drag-item:hover{
+    animation:none;
+}
+
+@keyframes floatBox{
+    0%{ transform:rotate(-2deg) }
+    50%{ transform:rotate(2deg) }
+    100%{ transform:rotate(-2deg) }
+}
+
+.fragments{
+    background:linear-gradient(#9DD9FE,#D9EFFF);
+}
+
+.info-box{
+    opacity:0;
+    transition:0.5s;
+    z-index:20;
+    width:28vw;
+    max-width:420px;
+
+    font-size:clamp(14px,1.2vw,20px);
+}
+
+.info-box.visible{
+    opacity:1;
+}
+
+.cloud-center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:60vw;
+    max-width:900px;
+    pointer-events:none;
+    z-index:1;
+}
+
+
+/* =====================================================
+   RAIN SCREEN
+===================================================== */
+
+
+.rain{
+    background:linear-gradient(#A0DAFF,#ffffff);
+    position:relative;
+    overflow:hidden;
+    display:block;
+}
+
+.rain-scene{
+    position:relative;
+    width:100%;
+    height:100vh;
+}
+
+
+.rain-top-cloud{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:300px;
+    z-index:5;
+}
+
+.rain-top-cloud img{
+    width:100%;
+    display:block;
+}
+
+.rain-top-cloud img{
+    pointer-events:none;
+}
+
+
+.rain-factory{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:80vw;
+    max-width:1200px;
+    z-index:3;
+}
+
+
+
+.rain-container{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+
+
+.raindrop{
+    position:absolute;
+    width:2vw;
+    max-width:32px;
+    opacity:.95;
+    animation:rainFall linear forwards;
+}
+
+.rain-title{
+    position:absolute;
+    bottom:15vh;
+    left:50%;
+    transform:translateX(-50%);
+    color:#98C8FF;
+    font-weight:400;
+    font-size:clamp(32px,6vw,96px);
+    z-index:2;
+}
+
+.factory-left,
+.factory-right{
+    z-index:3;
+    pointer-events:none;
+}
+
+.factory-left{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:25vw;
+    max-width:420px;
+}
+
+.factory-right{
+    position:absolute;
+    bottom:0;
+    right:0;
+    width:25vw;
+    max-width:420px;
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+
+@keyframes rainFall{
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(80vh);
+        opacity:1;
+    }
+}
+
+
+.raindrop.float{
+    animation:floatDrop 3s ease-in-out infinite;
+}
+
+@keyframes floatDrop{
+    0%{ transform:translateY(0) }
+    50%{ transform:translateY(-12px) }
+    100%{ transform:translateY(0) }
+}
+
+
+/* =====================================================
+   ADAPTIVE
+===================================================== */
+
+
+@media (max-width:768px){
+
+    .cloud-bottom{
+        width:160%;
+        bottom:10%;
+    }
+
+    .cloud-text{
+        width:90%;
+        font-size:20px;
+    }
+
+    .bubble{
+        transform:scale(.8);
+    }
+
+}
+
+
+@media (max-width:900px){
+
+    .particle img{
+        width:7vw;
+        max-width:90px;
+    }
+
+}
+
