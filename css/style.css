@@ -674,7 +674,7 @@ circle{
     left:0;
     width:100%;
     height:300px;
-    z-index:5;
+    z-index:20;
     user-select: none;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
@@ -846,8 +846,57 @@ circle{
     .factory-right{
         width:40vw;
     }
-}
 
+    [data-zone="layers"]{
+        left:10%;
+        top:15%;
+    }
+
+    [data-zone="drops"]{
+        right:10%;
+        top:40%;
+    }
+
+    [data-zone="surface"]{
+        left:20%;
+        bottom:15%;
+    }
+
+    .drop-zone{
+        width:28vw;
+        height:28vw;
+        font-size:16px;
+    }
+    h2{
+        font-size:22px;
+    }
+
+    .cloud-strip span{
+        font-size:22px;
+    }
+
+    .freeze-strip span{
+        font-size:22px;
+    }
+
+    .rain-marquee{
+        font-size:22px;
+    }
+
+    .cloud-text{
+        font-size:16px;
+    }
+
+    .info-box{
+        font-size:14px;
+    }
+
+    .rain-title{
+        font-size:24px;
+    }
+
+
+}
 
 
 @media (max-width:1800px){
@@ -865,4 +914,8 @@ circle{
 
 .slider{
     touch-action: none;
+}
+
+.scene{
+    overflow:hidden;
 }

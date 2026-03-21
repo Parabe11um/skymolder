@@ -379,6 +379,11 @@ if(rainCloud && rainContainer) {
         startRain()
     });
 
+    rainCloud.addEventListener("click", (e)=>{
+        e.preventDefault()
+        startRain()
+    });
+
     window.addEventListener("pointerup", stopRain);
 
 }
