@@ -980,4 +980,61 @@ circle{
         padding:20px;
     }
 
+    .freeze-field{
+        padding-top:18vh;
+    }
+
+    .particle img{
+        width:18vw;
+    }
+
+    .cloud-scene{
+        height:calc(100vh - 60px);
+    }
+
+    .drag-item{
+        width:16vw;
+        max-width:none;
+    }
+
+    .drop-zone{
+        width:24vw;
+        height:24vw;
+        font-size:14px;
+    }
+
+    /* новые позиции зон */
+
+    [data-zone="layers"]{
+        left:32%;
+        top:18%;
+    }
+
+    [data-zone="drops"]{
+        right:12%;
+        top:45%;
+    }
+
+    [data-zone="surface"]{
+        left:28%;
+        bottom:15%;
+    }
+
+    /* стартовые позиции элементов */
+
+    .drag1{
+        left:5%;
+        top:10%;
+    }
+
+    .drag2{
+        left:6%;
+        bottom:8%;
+    }
+
+    .drag3{
+        right:5%;
+        bottom:8%;
+    }
+
 }

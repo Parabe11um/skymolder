@@ -217,6 +217,9 @@ let shiftY = 0
 
 items.forEach(item => {
     item.addEventListener("pointerdown", (e) => {
+
+        e.preventDefault()
+
         if (item.classList.contains("placed")) return
 
         active = item
