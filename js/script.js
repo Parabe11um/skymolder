@@ -57,6 +57,16 @@ if(factory){
             z.layer.style.opacity = 0
         })
 
+        zone.addEventListener("pointerdown", () => {
+
+            if (z.layer.style.opacity == 1) {
+                z.layer.style.opacity = 0
+            } else {
+                z.layer.style.opacity = 1
+            }
+
+        })
+
         factory.appendChild(zone)
 
     })
@@ -89,6 +99,7 @@ window.addEventListener("load", () => {
             img.src = images[Math.floor(Math.random()*images.length)]
 
             bubble.appendChild(img)
+            img.style.pointerEvents = "none"
 
             const size = Math.random() * 120 + 120
             bubble.style.width = size + "px"
@@ -148,18 +159,20 @@ if (slider) {
         slider.style.cursor = "grab";
     });
 
-    document.addEventListener("pointermove", (e) => {
-        if (!dragging) return;
+
+    function setTemperature(clientY){
 
         const lineRect = thermoLine.getBoundingClientRect();
         const innerRect = thermoInner.getBoundingClientRect();
         const sliderHalf = slider.offsetHeight / 2;
 
-        let y = e.clientY - lineRect.top;
+        let y = clientY - lineRect.top;
+
         if (y < 0) y = 0;
         if (y > lineRect.height) y = lineRect.height;
 
         const sliderTop = (lineRect.top - innerRect.top) + y - sliderHalf;
+
         slider.style.top = `${sliderTop}px`;
         slider.style.bottom = "auto";
 
@@ -180,6 +193,17 @@ if (slider) {
         } else {
             field.classList.remove("frozen");
         }
+
+    }
+
+    document.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        setTemperature(e.clientY);
+    });
+
+    thermoLine.addEventListener("pointerdown", (e)=>{
+        e.preventDefault()
+        setTemperature(e.clientY);
     });
 }
 
@@ -346,6 +370,11 @@ if(rainCloud && rainContainer) {
     }
 
     rainCloud.addEventListener("pointerdown", (e) => {
+        e.preventDefault()
+        startRain()
+    });
+
+    rainCloud.addEventListener("touchstart", (e)=>{
         e.preventDefault()
         startRain()
     });

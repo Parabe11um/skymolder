@@ -861,3 +861,8 @@ circle{
     }
 
 }
+
+
+.slider{
+    touch-action: none;
+}
