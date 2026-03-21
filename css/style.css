@@ -481,6 +481,7 @@ h2{
     height:calc(100vh - 80px);
     margin:auto;
     overflow:hidden;
+    touch-action:none;
 }
 
 .drag-item{

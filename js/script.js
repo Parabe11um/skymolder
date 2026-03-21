@@ -292,12 +292,14 @@ document.addEventListener("pointermove", (e) => {
 
     if (!active) return
 
+    e.preventDefault()   // блокируем scroll
+
     const sceneRect = scene.getBoundingClientRect()
 
     active.style.left = (e.clientX - sceneRect.left - shiftX) + "px"
     active.style.top  = (e.clientY - sceneRect.top  - shiftY) + "px"
 
-})
+}, { passive:false })
 
 
     const rainCloud = document.querySelector(".rain-top-cloud");
