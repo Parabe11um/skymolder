@@ -187,8 +187,9 @@ h2{
     overflow:hidden;
     display:flex;
     flex-direction:column;
-    justify-content:start;
+    justify-content:flex-start;
     align-items:center;
+    min-height:100vh;
 }
 
 
@@ -260,10 +261,10 @@ h2{
 
 .cloud-bottom{
     position:absolute;
-    bottom:0;
+    bottom:-5vh;
     left:50%;
     transform:translateX(-50%);
-    width:120%;
+    width:130%;
     max-width:none;
     height:auto;
     z-index:1;
@@ -540,10 +541,6 @@ h2{
 .drag1{ left:5%; top:15%; }
 .drag2{ left:6%; bottom:10%; }
 .drag3{ right:5%; bottom:10%; }
-
-[data-zone="layers"]{left:420px;top:140px;}
-[data-zone="drops"]{right:360px;top:280px;}
-[data-zone="surface"]{left:360px;bottom:120px;}
 
 
 .info-box{
@@ -822,10 +819,6 @@ circle{
         width:clamp(110px, 22vw, 180px);
     }
 
-    .bubbles{
-        height:75%;
-        top: 30vh;
-    }
     .bubble{
         transform:scale(.8);
     }
@@ -961,145 +954,34 @@ circle{
 /* landscape работает нормально */
 @media (max-width:900px) and (orientation:landscape){
 
-    .rotate-device{
-        display:none;
-    }
-
-    .section{
-        display:flex;
-    }
-
-    .cloud-bottom{
-        position:absolute;
-        bottom:0;
-        left:50%;
-        transform:translateX(-50%);
-        width:120%;
-    }
-
-
-    .clouds{
-        justify-content:center;
-    }
-
-    .bubbles{
-        position:absolute;
-        top:80px;
-        left:0;
-        width:100%;
+    .cloud-scene{
         height:calc(100vh - 80px);
-        padding:4vh 6vw 20vh;
-        box-sizing:border-box;
-        z-index:3;
     }
 
-    .bubble{
-        transform:scale(.75);
+    .drag-item{
+        width:10vw;
     }
 
-
-    .section{
-        min-height:100vh;
-        width:100vw;
-    }
-
-    .scene{
-        padding:20px;
-    }
-
-    .freeze-field{
-        padding-top:18vh;
-    }
-
-    .particle img{
+    .drop-zone{
         width:18vw;
-    }
-
-    .cloud-scene{
-        height:calc(100vh - 60px);
-    }
-
-    .drag-item{
-        width:16vw;
-        max-width:none;
-    }
-
-    .drop-zone{
-        width:24vw;
-        height:24vw;
-        font-size:14px;
-    }
-
-    /* новые позиции зон */
-
-    [data-zone="layers"]{
-        left:32%;
-        top:18%;
-    }
-
-    [data-zone="drops"]{
-        right:12%;
-        top:45%;
-    }
-
-    [data-zone="surface"]{
-        left:28%;
-        bottom:15%;
-    }
-
-    /* стартовые позиции элементов */
-
-    .drag1{
-        left:5%;
-        top:10%;
-    }
-
-    .drag2{
-        left:6%;
-        bottom:8%;
-    }
-
-    .drag3{
-        right:5%;
-        bottom:8%;
-    }
-
-
-    .cloud-scene{
-        height:calc(100vh - 80px);
-    }
-
-    /* уменьшить элементы */
-    .drag-item{
-        width:12vw;
-        max-width:none;
-    }
-
-    /* уменьшить зоны */
-    .drop-zone{
-        width:20vw;
-        height:20vw;
+        height:18vw;
         font-size:12px;
     }
 
-    /* новые позиции зон */
-
-    [data-zone="layers"]{
+    .zone-layers{
         left:35%;
         top:15%;
     }
 
-    [data-zone="drops"]{
-        right:10%;
-        top:40%;
+    .zone-drops{
+        right:12%;
+        top:38%;
     }
 
-    [data-zone="surface"]{
+    .zone-surface{
         left:30%;
-        bottom:12%;
+        bottom:10%;
     }
-
-    /* стартовые позиции блоков */
 
     .drag1{
         left:4%;
@@ -1108,11 +990,12 @@ circle{
 
     .drag2{
         left:4%;
-        bottom:10%;
+        bottom:8%;
     }
 
     .drag3{
         right:4%;
-        bottom:10%;
+        bottom:8%;
     }
+
 }
