@@ -94,14 +94,18 @@ window.addEventListener("load", () => {
             bubble.style.width = size + "px"
             bubble.style.height = size + "px"
 
+            bubble.style.pointerEvents = "auto"
+            bubble.style.zIndex = 5
+
             const rect = bubbles.getBoundingClientRect()
-            const centerY = rect.height * 0.5
 
-            bubble.style.left = Math.random() * (rect.width - size) + "px"
+            const padding = 20
 
-            let top = centerY + (Math.random() - 0.5) * rect.height * 0.4
-            top = Math.max(0, Math.min(rect.height - size, top))
-            bubble.style.top = top + "px"
+            bubble.style.left =
+                Math.random() * (rect.width - size - padding * 2) + padding + "px"
+
+            bubble.style.top =
+                Math.random() * (rect.height - size - padding * 2) + padding + "px"
 
             bubble.style.position = "absolute"
             bubble.style.zIndex = 5

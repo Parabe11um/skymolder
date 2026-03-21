@@ -214,7 +214,7 @@ h2{
 .bubbles{
     position: relative;
     height: 60%;
-    top:0;
+    top: 30vh;
     left:0;
     width:100%;
     z-index:3;
@@ -782,6 +782,8 @@ circle{
    ADAPTIVE
 ===================================================== */
 
+
+
 @media (max-width:900px){
 
     .particle img{
@@ -815,7 +817,10 @@ circle{
         width:clamp(110px, 22vw, 180px);
     }
 
-
+    .bubbles{
+        height:75%;
+        top: 30vh;
+    }
     .bubble{
         transform:scale(.8);
     }
@@ -841,6 +846,18 @@ circle{
     .factory-right{
         width:40vw;
     }
+}
 
+
+
+@media (max-width:1800px){
+
+    .factory{
+        transform: translateX(-50%) scale(0.7);
+    }
+
+    .hero-brand{
+        font-size: clamp(80px, 12vw, 180px);
+    }
 
 }
