@@ -5,6 +5,8 @@
 html, body {
     overflow-x: hidden;
     width: 100%;
+    touch-action:manipulation;
+
 }
 
 body{
@@ -918,4 +920,64 @@ circle{
 
 .scene{
     overflow:hidden;
+}
+
+
+
+
+.rotate-device{
+    position:fixed;
+    inset:0;
+    background:#0B2953;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    z-index:9999;
+    display:none;
+}
+
+/* показываем только на телефоне */
+@media (max-width:900px) and (orientation:portrait){
+
+    .rotate-device{
+        display:flex;
+    }
+
+    body{
+        overflow:hidden;
+    }
+
+    .section{
+        display:none;
+    }
+
+}
+
+/* landscape работает нормально */
+@media (max-width:900px) and (orientation:landscape){
+
+    .rotate-device{
+        display:none;
+    }
+
+    .section{
+        display:flex;
+    }
+
+}
+
+
+@media (max-width:900px) and (orientation:landscape){
+
+    .section{
+        min-height:100vh;
+        width:100vw;
+    }
+
+    .scene{
+        padding:20px;
+    }
+
 }
