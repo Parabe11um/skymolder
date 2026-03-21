@@ -79,7 +79,9 @@ const text = document.querySelector(".cloud-text")
 
 window.addEventListener("load", () => {
 
-    if(bubbles){
+    if(!bubbles) return;
+
+    setTimeout(()=>{
 
         const images = [
             "/img/Frame_285.png",
@@ -101,14 +103,17 @@ window.addEventListener("load", () => {
             bubble.appendChild(img)
             img.style.pointerEvents = "none"
 
-            const size = Math.random() * 120 + 120
+            const size = Math.random() * 80 + 90
             bubble.style.width = size + "px"
             bubble.style.height = size + "px"
 
             bubble.style.pointerEvents = "auto"
             bubble.style.zIndex = 5
 
-            const rect = bubbles.getBoundingClientRect()
+            const rect = {
+                width: bubbles.offsetWidth,
+                height: bubbles.offsetHeight
+            }
 
             const padding = 20
 
@@ -134,8 +139,7 @@ window.addEventListener("load", () => {
 
             bubbles.appendChild(bubble)
         }
-    }
-
+    },100)
 })
 
 const slider = document.querySelector(".slider");
