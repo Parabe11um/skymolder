@@ -25,10 +25,10 @@ if(factory){
 
     const factoryZones = [
 
-        {x:5,  y:26, w:18, h:55, layer:p1},
-        {x:23, y:14, w:33, h:62, layer:p2},
-        {x:47, y:0,  w:23, h:71, layer:p3},
-        {x:74, y:28, w:17, h:71, layer:p4}
+        {x:5,  y:76, w:18, h:55, layer:p1},
+        {x:23, y:76, w:33, h:62, layer:p2},
+        {x:47, y:76,  w:23, h:71, layer:p3},
+        {x:74, y:76, w:17, h:171, layer:p4}
 
     ]
 
@@ -73,6 +73,7 @@ if(factory){
 
 }
 
+// Пузыри
 
 const bubbles = document.querySelector(".bubbles")
 const text = document.querySelector(".cloud-text")
@@ -81,67 +82,90 @@ window.addEventListener("load", () => {
 
     if(!bubbles) return;
 
-    setTimeout(()=>{
+    const images = [
+        "/img/Frame_285.png",
+        "/img/Frame_279.png",
+        "/img/Frame_277.png"
+    ]
 
-        const images = [
-            "/img/Frame_285.png",
-            "/img/Frame_279.png",
-            "/img/Frame_277.png"
-        ]
+    let total = 12
+    let popped = 0
 
-        let total = 12
-        let popped = 0
+    const placed = []
 
-        for(let i=0;i<total;i++){
+    const rect = bubbles.getBoundingClientRect()
 
-            let bubble = document.createElement("div")
-            bubble.className = "bubble"
+    const puddleHeight = rect.height * 0.35   // зона лужи (нижняя часть)
 
-            let img = document.createElement("img")
-            img.src = images[Math.floor(Math.random()*images.length)]
+    function intersects(x,y,size){
 
-            bubble.appendChild(img)
-            img.style.pointerEvents = "none"
+        for(const b of placed){
 
-            const size = Math.random() * 80 + 90
-            bubble.style.width = size + "px"
-            bubble.style.height = size + "px"
+            const dx = x - b.x
+            const dy = y - b.y
+            const dist = Math.sqrt(dx*dx + dy*dy)
 
-            bubble.style.pointerEvents = "auto"
-            bubble.style.zIndex = 5
-
-            const rect = {
-                width: bubbles.offsetWidth,
-                height: bubbles.offsetHeight
+            if(dist < (size/2 + b.size/2 + 20)){
+                return true
             }
-
-            const padding = 20
-
-            bubble.style.left =
-                Math.random() * (rect.width - size - padding * 2) + padding + "px"
-
-            bubble.style.top =
-                Math.random() * (rect.height - size - padding * 2) + padding + "px"
-
-            bubble.style.position = "absolute"
-            bubble.style.zIndex = 5
-
-            bubble.onclick = ()=>{
-                bubble.classList.add("pop")
-                setTimeout(()=>bubble.remove(),250)
-
-                popped++
-
-                if(popped === total){
-                    text.classList.remove("hidden")
-                }
-            }
-
-            bubbles.appendChild(bubble)
         }
-    },100)
-})
 
+        return false
+    }
+
+    for(let i=0;i<total;i++){
+
+        let bubble = document.createElement("div")
+        bubble.className = "bubble"
+
+        let img = document.createElement("img")
+        img.src = images[Math.floor(Math.random()*images.length)]
+
+        bubble.appendChild(img)
+
+        const size = Math.random()*70 + 90
+
+        bubble.style.width = size+"px"
+        bubble.style.height = size+"px"
+
+        let x,y
+        let tries = 0
+
+        do{
+
+            x = Math.random() * (rect.width - size)
+            y = Math.random() * (rect.height - puddleHeight - size)
+
+            tries++
+
+            if(tries>200) break
+
+        } while(intersects(x,y,size))
+
+        placed.push({x,y,size})
+
+        bubble.style.left = x+"px"
+        bubble.style.top = y+"px"
+
+        bubble.onclick = ()=>{
+
+            bubble.classList.add("pop")
+
+            setTimeout(()=>bubble.remove(),250)
+
+            popped++
+
+            if(popped === total){
+                text.classList.remove("hidden")
+            }
+
+        }
+
+        bubbles.appendChild(bubble)
+
+    }
+
+})
 const slider = document.querySelector(".slider");
 
 if (slider) {
@@ -247,9 +271,11 @@ items.forEach(item => {
 })
 
 
-document.addEventListener("pointerup", (e) => {
+document.addEventListener("pointerup", () => {
 
     if (!active) return
+
+    let correct = false
 
     zones.forEach(zone => {
 
@@ -267,20 +293,27 @@ document.addEventListener("pointerup", (e) => {
 
         if (overlap && active.dataset.target === zone.dataset.zone) {
 
-            active.style.left = (zone.offsetLeft) + "px"
-            active.style.top  = (zone.offsetTop) + "px"
+            active.style.left = zone.offsetLeft + "px"
+            active.style.top  = zone.offsetTop + "px"
 
             active.style.pointerEvents = "none"
             active.classList.add("placed")
+
+            correct = true
         }
 
     })
 
-    const placedNow = document.querySelectorAll(".drag-item.placed").length
+    if (correct) {
 
-    if (placedNow === 3) {
-        document.querySelector(".info1").classList.add("visible")
-        document.querySelector(".info2").classList.add("visible")
+        const placedNow = document.querySelectorAll(".drag-item.placed").length
+
+        if (placedNow === 3) {
+
+            document.querySelector(".info1").classList.add("visible")
+            document.querySelector(".info2").classList.add("visible")
+
+        }
     }
 
     active.style.zIndex = 1
@@ -370,7 +403,7 @@ if(rainCloud && rainContainer) {
         if (raining) return;
 
         raining = true;
-        rainInterval = setInterval(createDrop, 45);
+        setInterval(createDrop, 70);
     }
 
     function stopRain() {

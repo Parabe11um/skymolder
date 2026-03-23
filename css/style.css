@@ -70,7 +70,7 @@ body{
 }
 
 h2{
-    text-align:center;
+    text-align:left;
     color:white;
     font-weight:400;
     margin:0;
@@ -106,7 +106,7 @@ h2{
 
 .factory-base{
     position:absolute;
-    bottom:0;
+    bottom: -92%;
     left:0;
     max-width:100%;
     height:auto;
@@ -115,17 +115,13 @@ h2{
 
 .factory-part{
     position:absolute;
-    bottom:0;
+    bottom: -96%;
     left:0;
-
     width:100%;
     height:auto;
-
     z-index:3;
-
     opacity:0;
     pointer-events:none;
-
     transition:0.25s;
 }
 
@@ -163,17 +159,17 @@ h2{
 }
 
 .part-281{
-    bottom:-22.8%;
+    bottom:-115%;
     left:29%;
 }
 
 .part-280{
-    bottom:-61.9%;
+    bottom:-154%;
     left:47.8%;
 }
 
 .part-278{
-    bottom:8.1%;
+    bottom:-84%;
     left:-7.7%;
 }
 
@@ -252,6 +248,7 @@ h2{
     z-index:5;
     width:600px;
     color:white;
+    text-align: center;
     font-size:24px;
     line-height:1.4;
 }
@@ -292,7 +289,7 @@ h2{
     padding: 0 24px;
     box-sizing: border-box;
     z-index: 5;
-    justify-content: center;
+    justify-content: end;
 }
 
 .freeze-strip span{
@@ -343,14 +340,22 @@ h2{
     width:160px;
 }
 
+.p1{ left:6%; top:12%; }
+.p2{ left:18%; top:18%; }
+.p3{ left:30%; top:10%; }
+.p4{ left:45%; top:20%; }
+.p5{ left:60%; top:12%; }
 
-.p1{ left:8%; top:12%; }
-.p2{ left:38%; top:8%; }
-.p3{ left:45%; top:22%; }
-.p4{ left:18%; top:40%; }
-.p5{ left:50%; top:52%; }
-.p6{ left:54%; top:18%; }
+.p6{ left:10%; top:40%; }
+.p7{ left:22%; top:50%; }
+.p8{ left:36%; top:45%; }
+.p9{ left:50%; top:55%; }
+.p10{ left:65%; top:42%; }
 
+.p11{ left:15%; top:70%; }
+.p12{ left:30%; top:75%; }
+.p13{ left:48%; top:70%; }
+.p14{ left:62%; top:78%; }
 
 .thermometer{
     background:#153661;
@@ -444,13 +449,14 @@ h2{
     display:flex;
     flex-direction:column;
     align-items:center;
+    min-height:120vh;
 }
 
 
 .rain-strip{
     background:#99ABFA;
     height:80px;
-    width: 100%;
+    width:100%;
     overflow:hidden;
     display:flex;
     align-items:center;
@@ -458,15 +464,39 @@ h2{
 
 .rain-marquee{
     white-space:nowrap;
-    color:white;
+    font-family:'IBM Plex Sans Condensed', sans-serif;
+    font-weight:400;
     font-size:40px;
-    font-family:'IBM Plex Sans Condensed';
-    animation:marquee 12s linear infinite;
+    color:white;
+    animation:marquee 18s linear infinite;
 }
 
 @keyframes marquee{
     from{transform:translateX(0)}
-    to{transform:translateX(-50%)}
+    to{transform:translateX(-100%)}
+}
+
+
+.big-snow{
+    position:absolute;
+    left:0;
+    top:0;
+    width:80%;
+    height:80%;
+    object-fit:contain;
+    opacity:0;
+    transform:scale(.9);
+    transition:0.6s;
+    pointer-events:none;
+}
+
+.freeze-field.frozen .big-snow{
+    opacity:1;
+    transform:scale(1);
+}
+
+.freeze-field.frozen .drop{
+    opacity:0;
 }
 
 
@@ -477,17 +507,16 @@ h2{
 .cloud-scene{
     position:relative;
     width:100%;
-    max-width:1400px;
     height:calc(100vh - 80px);
-    margin:auto;
-    overflow:hidden;
-    touch-action:none;
+    min-height:900px;
+    overflow:visible;
 }
 
 .drag-item{
     position:absolute;
-    width:clamp(60px, 8vw, 110px);
-    max-width:220px;
+    width:clamp(180px, 18vw, 280px);
+    aspect-ratio:1/1;
+    object-fit:cover;
     cursor:grab;
     z-index:5;
 }
@@ -498,47 +527,40 @@ h2{
     100%{transform:rotate(-2deg)}
 }
 
-
 .drop-zone{
     position:absolute;
-
-    width:14vw;
-    height:14vw;
-
-    max-width:200px;
-    max-height:200px;
-
-    border:3px solid black;
-
+    width:clamp(180px, 18vw, 280px);
+    aspect-ratio:1/1;
+    border:4px solid #111;
+    box-sizing:border-box;
     display:flex;
     align-items:center;
     justify-content:center;
-
-    font-family:'IBM Plex Sans Condensed';
-    font-size:clamp(16px,1.5vw,28px);
-
     text-align:center;
-    z-index:4;
+    font-family:'IBM Plex Sans Condensed', sans-serif;
+    font-weight:400;
+    font-size:clamp(22px,1.8vw,36px);
+    line-height:1.1;
 }
 
 .zone-layers{
-    left:35%;
-    top:20%;
+    left:395px;
+    top:78px;
 }
 
 .zone-drops{
-    right:20%;
-    top:35%;
+    right: 270px;
+    top:403px;
 }
 
 .zone-surface{
-    left:30%;
-    bottom:15%;
+    left:307px;
+    bottom:92px;
 }
 
-.drag1{ left:5%; top:15%; }
-.drag2{ left:6%; bottom:10%; }
-.drag3{ right:5%; bottom:10%; }
+.drag1{ left:6%; top:18%; }
+.drag2{ left:6%; bottom:12%; }
+.drag3{ right:6%; bottom:12%; }
 
 
 .info-box{
@@ -640,12 +662,11 @@ circle{
 .cloud-center{
     position:absolute;
     left:50%;
-    top:50%;
+    top:52%;
     transform:translate(-50%,-50%);
-    width:60vw;
-    max-width:900px;
+    width:760px;
+    max-width:none;
     pointer-events:none;
-    z-index:1;
 }
 
 
@@ -711,7 +732,7 @@ circle{
 
 .raindrop{
     position:absolute;
-    width:2vw;
+    width:clamp(14px,1.8vw,28px);
     max-width:32px;
     opacity:.95;
     animation:rainFall linear forwards;
@@ -756,14 +777,21 @@ circle{
 
 
 @keyframes rainFall{
-    from{
+
+    0%{
         transform:translateY(0);
         opacity:1;
     }
-    to{
-        transform:translateY(80vh);
+
+    70%{
         opacity:1;
     }
+
+    100%{
+        transform:translateY(85vh);
+        opacity:0;
+    }
+
 }
 
 
@@ -861,7 +889,7 @@ circle{
     .drop-zone{
         width:28vw;
         height:28vw;
-        font-size:16px;
+        font-size:clamp(28px, 2vw, 36px);
     }
     h2{
         font-size:22px;
@@ -1016,7 +1044,7 @@ circle{
     /* элементы меньше */
 
     .drag-item{
-        width:8vw;
+        width: 18vw;
     }
 
     /* зоны меньше */
