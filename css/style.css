@@ -215,10 +215,10 @@ h2{
     top:80px;
     left:0;
     width:100%;
-    height:calc(100vh - 160px);
-    z-index:5;
-    padding:4vh 6vw 18vh;
+    height:60vh;
+    padding:4vh 6vw;
     box-sizing:border-box;
+    z-index:5;
 }
 
 
@@ -259,11 +259,11 @@ h2{
 
 .cloud-bottom{
     position:absolute;
-    bottom:-2vh;
+    bottom:0;
     left:50%;
     transform:translateX(-50%);
     width:130%;
-    z-index:2;
+    max-width:none;
 }
 
 /* =====================================================
@@ -826,8 +826,8 @@ circle{
 @media (max-width:768px){
 
     .cloud-bottom{
-        width:160%;
-        bottom:10%;
+        bottom:0;
+        width:180%;
     }
 
     .particle img{

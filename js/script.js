@@ -93,9 +93,13 @@ window.addEventListener("load", () => {
 
     const placed = []
 
-    const rect = bubbles.getBoundingClientRect()
+    function getBubbleRect(){
+        return bubbles.getBoundingClientRect()
+    }
 
-    const puddleHeight = rect.height * 0.35   // зона лужи (нижняя часть)
+    let rect = getBubbleRect()
+
+    const puddleHeight = rect.height * 0.35
 
     function intersects(x,y,size){
 
@@ -123,7 +127,11 @@ window.addEventListener("load", () => {
 
         bubble.appendChild(img)
 
-        const size = Math.random()*70 + 90
+        let size = Math.random()*70 + 90
+
+        if(window.innerWidth < 768){
+            size = Math.random()*40 + 60
+        }
 
         bubble.style.width = size+"px"
         bubble.style.height = size+"px"
@@ -133,8 +141,11 @@ window.addEventListener("load", () => {
 
         do{
 
+            rect = getBubbleRect()
+
             x = Math.random() * (rect.width - size)
-            y = Math.random() * (rect.height - puddleHeight - size)
+            const maxHeight = rect.height * 0.65
+            y = Math.random() * (maxHeight - size)
 
             tries++
 
