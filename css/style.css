@@ -28,6 +28,11 @@ body{
     box-sizing: border-box;
 }
 
+
+:root{
+    --cloud-square:260px;
+}
+
 /* =====================================================
    FONTS
 ===================================================== */
@@ -320,7 +325,7 @@ h2{
 
 
 .particle img{
-    width:clamp(40px, 8vw, 140px);
+    width:clamp(90px, 10vw, 180px);
 }
 
 .particle{
@@ -352,10 +357,10 @@ h2{
 .p9{ left:50%; top:55%; }
 .p10{ left:65%; top:42%; }
 
-.p11{ left:15%; top:70%; }
-.p12{ left:30%; top:75%; }
-.p13{ left:48%; top:70%; }
-.p14{ left:62%; top:78%; }
+.p11{ left:15%; top:65%; }
+.p12{ left:30%; top:68%; }
+.p13{ left:48%; top:65%; }
+.p14{ left:62%; top:68%; }
 
 .thermometer{
     background:#153661;
@@ -514,8 +519,8 @@ h2{
 
 .drag-item{
     position:absolute;
-    width:clamp(180px, 18vw, 280px);
-    aspect-ratio:1/1;
+    width:var(--cloud-square);
+    height:var(--cloud-square);
     object-fit:cover;
     cursor:grab;
     z-index:5;
@@ -664,9 +669,10 @@ circle{
     left:50%;
     top:52%;
     transform:translate(-50%,-50%);
-    width:760px;
+    width:1100px;
     max-width:none;
     pointer-events:none;
+    opacity:0.9;
 }
 
 
@@ -732,23 +738,22 @@ circle{
 
 .raindrop{
     position:absolute;
-    width:clamp(14px,1.8vw,28px);
-    max-width:32px;
+    width:clamp(66px,2.8vw,82px);
     opacity:.95;
     animation:rainFall linear forwards;
 }
 
 .rain-title{
     position:absolute;
-    bottom:15vh;
+    top:50%;
     left:50%;
-    transform:translateX(-50%);
+    transform:translate(-50%, -50%);
     color:#98C8FF;
     font-weight:400;
-    font-size:clamp(32px,6vw,96px);
+    font-size:clamp(48px,7vw,110px);
     z-index:2;
+    text-align:center;
 }
-
 .factory-left,
 .factory-right{
     z-index:3;
@@ -758,17 +763,17 @@ circle{
 .factory-left{
     position:absolute;
     bottom:0;
-    left:0;
-    width:25vw;
-    max-width:420px;
+    left:-2vw;
+    width:32vw;
+    max-width:none;
 }
 
 .factory-right{
     position:absolute;
     bottom:0;
-    right:0;
-    width:25vw;
-    max-width:420px;
+    right:-2vw;
+    width:32vw;
+    max-width:none;
 }
 
 /* =====================================================
