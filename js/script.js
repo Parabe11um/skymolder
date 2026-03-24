@@ -93,6 +93,23 @@ window.addEventListener("load", () => {
 
     const placed = []
 
+    function intersects(x,y,size){
+
+        for(let p of placed){
+
+            const dx = x - p.x
+            const dy = y - p.y
+            const dist = Math.sqrt(dx*dx + dy*dy)
+
+            if(dist < (size + p.size) * 0.45){
+                return true
+            }
+
+        }
+
+        return false
+    }
+
     function getBubbleRect(){
         return bubbles.getBoundingClientRect()
     }
