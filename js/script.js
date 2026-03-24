@@ -100,29 +100,6 @@ window.addEventListener("load", () => {
     let rect = getBubbleRect()
     const puddleHeight = rect.height * 0.45
 
-    function intersects(x,y,size){
-
-        const cx = x + size/2
-        const cy = y + size/2
-
-        for(const b of placed){
-
-            const bx = b.x + b.size/2
-            const by = b.y + b.size/2
-
-            const dx = cx - bx
-            const dy = cy - by
-
-            const dist = Math.sqrt(dx*dx + dy*dy)
-
-            if(dist < (size/2 + b.size/2 + 10)){
-                return true
-            }
-        }
-
-        return false
-    }
-
     for(let i=0;i<total;i++){
 
         let bubble = document.createElement("div")
@@ -156,8 +133,8 @@ window.addEventListener("load", () => {
         const col = i % cols
         const row = Math.floor(i / cols)
 
-        x = col * colWidth + Math.random() * (colWidth - size)
-        y = row * rowHeight + Math.random() * (rowHeight - size)
+        let x = col * colWidth + (colWidth - size) / 2
+        let y = row * rowHeight + (rowHeight - size) / 2
 
         placed.push({x,y,size})
 

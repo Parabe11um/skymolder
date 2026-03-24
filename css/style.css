@@ -373,6 +373,8 @@ h2{
     justify-self:end;
     width:100%;
     max-width:320px;
+    min-width:260px;
+
 }
 
 .thermo-inner{
