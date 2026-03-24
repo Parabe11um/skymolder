@@ -456,23 +456,22 @@ if(rainCloud && rainContainer) {
 
 
 let rotationEnabled = false;
-let lastOrientation = window.innerWidth > window.innerHeight ? "landscape" : "portrait";
 
 function enableRotationReload(){
     rotationEnabled = true;
 }
 
-window.addEventListener("resize", () => {
-
+function reloadOnRotate(){
     if(!rotationEnabled) return;
 
-    const currentOrientation =
-        window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+    setTimeout(()=>{
+        location.reload();
+    },200);
+}
 
-    if(currentOrientation !== lastOrientation){
-        setTimeout(()=>{
-            location.reload();
-        },150);
-    }
+if (screen.orientation) {
+    screen.orientation.addEventListener("change", reloadOnRotate);
+}
 
-});
+window.addEventListener("orientationchange", reloadOnRotate);
+window.addEventListener("resize", reloadOnRotate);
