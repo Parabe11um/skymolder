@@ -174,10 +174,6 @@ window.addEventListener("load", () => {
 
             if(popped === total){
                 text.classList.remove("hidden")
-
-                setTimeout(()=>{
-                    enableRotationReload()
-                },500)
             }
 
         })
@@ -455,19 +451,50 @@ if(rainCloud && rainContainer) {
 }
 
 
-let rotationEnabled = false;
-let lastWidth = window.innerWidth;
 
-function enableRotationReload(){
-    rotationEnabled = true;
+
+
+function isPortrait(){
+    return window.innerHeight > window.innerWidth;
 }
 
-setInterval(() => {
+function isMobile(){
+    return window.innerWidth <= 900;
+}
 
-    if(!rotationEnabled) return;
+let waitingForRotateReload = false;
+let lastMode = isPortrait() ? "portrait" : "landscape";
 
-    if(window.innerWidth !== lastWidth){
+function updateRotateWatcher(){
+    if(isMobile() && isPortrait()){
+        waitingForRotateReload = true;
+    }
+}
+
+window.addEventListener("load", () => {
+    updateRotateWatcher();
+});
+
+window.addEventListener("resize", () => {
+    const currentMode = isPortrait() ? "portrait" : "landscape";
+
+    if(waitingForRotateReload && lastMode === "portrait" && currentMode === "landscape"){
         location.reload();
+        return;
     }
 
-}, 300);w.addEventListener("resize", reloadOnRotate);
+    lastMode = currentMode;
+    updateRotateWatcher();
+});
+
+window.addEventListener("orientationchange", () => {
+    const currentMode = isPortrait() ? "portrait" : "landscape";
+
+    if(waitingForRotateReload && lastMode === "portrait" && currentMode === "landscape"){
+        location.reload();
+        return;
+    }
+
+    lastMode = currentMode;
+    updateRotateWatcher();
+});
