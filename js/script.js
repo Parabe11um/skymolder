@@ -456,22 +456,18 @@ if(rainCloud && rainContainer) {
 
 
 let rotationEnabled = false;
+let lastWidth = window.innerWidth;
 
 function enableRotationReload(){
     rotationEnabled = true;
 }
 
-function reloadOnRotate(){
+setInterval(() => {
+
     if(!rotationEnabled) return;
 
-    setTimeout(()=>{
+    if(window.innerWidth !== lastWidth){
         location.reload();
-    },200);
-}
+    }
 
-if (screen.orientation) {
-    screen.orientation.addEventListener("change", reloadOnRotate);
-}
-
-window.addEventListener("orientationchange", reloadOnRotate);
-window.addEventListener("resize", reloadOnRotate);
+}, 300);w.addEventListener("resize", reloadOnRotate);
