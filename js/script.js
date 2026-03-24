@@ -174,6 +174,10 @@ window.addEventListener("load", () => {
 
             if(popped === total){
                 text.classList.remove("hidden")
+
+                setTimeout(()=>{
+                    enableRotationReload()
+                },500)
             }
 
         })
@@ -449,3 +453,16 @@ if(rainCloud && rainContainer) {
     window.addEventListener("pointerup", stopRain);
 
 }
+
+
+let rotationEnabled = false;
+
+function enableRotationReload(){
+    rotationEnabled = true;
+}
+
+window.addEventListener("orientationchange", () => {
+    if(rotationEnabled){
+        location.reload();
+    }
+});
