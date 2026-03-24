@@ -977,27 +977,15 @@ circle{
 
 }
 
-/* landscape работает нормально */
+
 @media (max-width:900px) and (orientation:landscape){
 
     .cloud-scene{
         height:calc(100vh - 80px);
+        touch-action:none;
     }
 
-    /* уменьшить draggable элементы */
-    .drag-item{
-        width:9vw;
-        max-width:none;
-    }
 
-    /* уменьшить drop зоны */
-    .drop-zone{
-        width:16vw;
-        height:16vw;
-        font-size:11px;
-    }
-
-    /* позиции зон */
 
     .zone-layers{
         left:36%;
@@ -1014,8 +1002,6 @@ circle{
         bottom:10%;
     }
 
-    /* стартовые позиции блоков */
-
     .drag1{
         left:3%;
         top:10%;
@@ -1031,23 +1017,14 @@ circle{
         bottom:8%;
     }
 
-}
 
 
-
-@media (max-width:900px) and (orientation:landscape){
-
-    .cloud-scene{
-        height:calc(100vh - 80px);
-    }
-
-    /* элементы меньше */
 
     .drag-item{
-        width: 18vw;
+        width:110px;
+        height:110px;
     }
 
-    /* зоны меньше */
 
     .drop-zone{
         width:16vw;
@@ -1055,7 +1032,6 @@ circle{
         font-size:11px;
     }
 
-    /* позиции зон */
 
     .zone-layers{
         left:38%;
@@ -1072,7 +1048,33 @@ circle{
         bottom:10%;
     }
 
-    /* стартовые позиции элементов */
+    .bubbles{
+        top:80px;
+        height:50vh;
+        overflow:hidden;
+    }
+
+    .cloud-bottom{
+        position:absolute;
+        bottom:0;
+        left:50%;
+        transform:translateX(-50%);
+        width:140%;
+    }
+
+    .bubble{
+        transform:scale(.65);
+    }
+
+
+    .freeze-field img{
+        transform:scale(.75);
+    }
+
+    .thermo{
+        transform:scale(.8);
+        transform-origin:right center;
+    }
 
     .drag1{
         left:2%;

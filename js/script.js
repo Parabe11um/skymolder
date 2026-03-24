@@ -98,8 +98,7 @@ window.addEventListener("load", () => {
     }
 
     let rect = getBubbleRect()
-
-    const puddleHeight = rect.height * 0.35
+    const puddleHeight = rect.height * 0.45
 
     function intersects(x,y,size){
 
@@ -135,6 +134,7 @@ window.addEventListener("load", () => {
 
         bubble.style.width = size+"px"
         bubble.style.height = size+"px"
+        bubble.style.position = "absolute"
 
         let x,y
         let tries = 0
@@ -143,8 +143,9 @@ window.addEventListener("load", () => {
 
             rect = getBubbleRect()
 
+            const maxHeight = rect.height * 0.55
+
             x = Math.random() * (rect.width - size)
-            const maxHeight = rect.height * 0.65
             y = Math.random() * (maxHeight - size)
 
             tries++
@@ -258,6 +259,7 @@ items.forEach(item => {
     item.addEventListener("pointerdown", (e) => {
 
         e.preventDefault()
+        document.body.style.overflow="hidden"
 
         if (item.classList.contains("placed")) return
 
@@ -283,6 +285,8 @@ items.forEach(item => {
 
 
 document.addEventListener("pointerup", () => {
+
+    document.body.style.overflow=""
 
     if (!active) return
 
@@ -414,7 +418,7 @@ if(rainCloud && rainContainer) {
         if (raining) return;
 
         raining = true;
-        setInterval(createDrop, 70);
+        rainInterval = setInterval(createDrop, 70);
     }
 
     function stopRain() {
