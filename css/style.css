@@ -1006,7 +1006,8 @@ circle{
 
 
     .drop{
-        max-width:10vw;
+        bottom:auto;
+        max-height:12vh;
     }
 
     .snow{
