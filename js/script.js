@@ -102,13 +102,20 @@ window.addEventListener("load", () => {
 
     function intersects(x,y,size){
 
+        const cx = x + size/2
+        const cy = y + size/2
+
         for(const b of placed){
 
-            const dx = x - b.x
-            const dy = y - b.y
+            const bx = b.x + b.size/2
+            const by = b.y + b.size/2
+
+            const dx = cx - bx
+            const dy = cy - by
+
             const dist = Math.sqrt(dx*dx + dy*dy)
 
-            if(dist < (size/2 + b.size/2 + 20)){
+            if(dist < (size/2 + b.size/2 + 10)){
                 return true
             }
         }
@@ -136,30 +143,26 @@ window.addEventListener("load", () => {
         bubble.style.height = size+"px"
         bubble.style.position = "absolute"
 
-        let x,y
-        let tries = 0
+        rect = getBubbleRect()
 
-        do{
+        const cols = 6
+        const rows = 2
 
-            rect = getBubbleRect()
+        const colWidth = rect.width / cols
+        const rowHeight = (rect.height * 0.55) / rows
 
-            const maxHeight = rect.height * 0.55
+        const col = i % cols
+        const row = Math.floor(i / cols)
 
-            x = Math.random() * (rect.width - size)
-            y = Math.random() * (maxHeight - size)
-
-            tries++
-
-            if(tries>200) break
-
-        } while(intersects(x,y,size))
+        x = col * colWidth + Math.random() * (colWidth - size)
+        y = row * rowHeight + Math.random() * (rowHeight - size)
 
         placed.push({x,y,size})
 
         bubble.style.left = x+"px"
         bubble.style.top = y+"px"
 
-        bubble.onclick = ()=>{
+        bubble.addEventListener("pointerdown", ()=>{
 
             bubble.classList.add("pop")
 
@@ -171,7 +174,7 @@ window.addEventListener("load", () => {
                 text.classList.remove("hidden")
             }
 
-        }
+        })
 
         bubbles.appendChild(bubble)
 

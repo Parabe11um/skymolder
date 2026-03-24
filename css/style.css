@@ -218,7 +218,7 @@ h2{
     height:60vh;
     padding:4vh 6vw;
     box-sizing:border-box;
-    z-index:5;
+    z-index:10;
 }
 
 
@@ -264,6 +264,7 @@ h2{
     transform:translateX(-50%);
     width:130%;
     max-width:none;
+    pointer-events:none;
 }
 
 /* =====================================================
@@ -272,7 +273,6 @@ h2{
 
 .freeze{
     background: linear-gradient(#5CB1E8, #A0DAFF);
-    padding-top: 80px;
     overflow: hidden;
     display:block;
     position:relative;
