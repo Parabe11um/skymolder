@@ -145,11 +145,13 @@ window.addEventListener("load", () => {
 
         rect = getBubbleRect()
 
-        const cols = 6
-        const rows = 2
+        const isMobile = window.innerWidth < 768
+
+        const cols = isMobile ? 3 : 6
+        const rows = isMobile ? 4 : 2
 
         const colWidth = rect.width / cols
-        const rowHeight = (rect.height * 0.55) / rows
+        const rowHeight = (rect.height * (isMobile ? 0.85 : 0.55)) / rows
 
         const col = i % cols
         const row = Math.floor(i / cols)
