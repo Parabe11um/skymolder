@@ -456,13 +456,23 @@ if(rainCloud && rainContainer) {
 
 
 let rotationEnabled = false;
+let lastOrientation = window.innerWidth > window.innerHeight ? "landscape" : "portrait";
 
 function enableRotationReload(){
     rotationEnabled = true;
 }
 
-window.addEventListener("orientationchange", () => {
-    if(rotationEnabled){
-        location.reload();
+window.addEventListener("resize", () => {
+
+    if(!rotationEnabled) return;
+
+    const currentOrientation =
+        window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+
+    if(currentOrientation !== lastOrientation){
+        setTimeout(()=>{
+            location.reload();
+        },150);
     }
+
 });
