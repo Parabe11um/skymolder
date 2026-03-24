@@ -307,9 +307,7 @@ h2{
 
 .freeze-content{
     display:grid;
-
-    grid-template-columns: 1fr minmax(100px, 15vw);
-
+    grid-template-columns: 2fr 1fr;
     width:100%;
     height:calc(100vh - 80px);
 }
@@ -325,7 +323,8 @@ h2{
 
 
 .particle img{
-    width:clamp(90px, 10vw, 180px);
+    width:clamp(60px,8vw,140px);
+    height:auto;
 }
 
 .particle{
@@ -922,6 +921,34 @@ circle{
 
     .rain-title{
         font-size:24px;
+    }
+
+    .freeze-content{
+        grid-template-columns: 1fr;
+    }
+
+    .freeze-field{
+        padding:40px 20px;
+        height:60vh;
+    }
+
+    .particle img{
+        width:80px;
+    }
+
+    .thermometer{
+        height:35vh;
+        border-left:none;
+        border-top:4px solid white;
+    }
+
+    .thermo-inner{
+        width:120px;
+        height:100%;
+    }
+
+    .slider{
+        width:70px;
     }
 
 
