@@ -1019,6 +1019,9 @@ circle{
         touch-action:none;
     }
 
+    .freeze-content{
+        grid-template-columns: 3fr 1fr;
+    }
 
     .freeze-scene{
         display:flex;
@@ -1043,10 +1046,13 @@ circle{
         max-width:10vw;
     }
 
-    .thermo{
+    .thermometer{
         width:20vw;
         min-width:110px;
         max-width:160px;
+        transform:scale(.8);
+        transform-origin:right center;
+        flex-shrink:0;
     }
 
     .thermo-inner{
@@ -1143,7 +1149,7 @@ circle{
         transform:scale(.75);
     }
 
-    .thermo{
+    .thermometer{
         transform:scale(.8);
         transform-origin:right center;
     }
@@ -1171,6 +1177,7 @@ circle{
 .freeze-field{
     position:relative;
     min-height:70vh;
+    overflow:hidden;
 }
 
 .freeze-field::after{
