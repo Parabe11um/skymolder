@@ -130,11 +130,19 @@ window.addEventListener("load", () => {
         const colWidth = rect.width / cols
         const rowHeight = (rect.height * (isMobile ? 0.85 : 0.55)) / rows
 
-        const col = i % cols
-        const row = Math.floor(i / cols)
+        let x, y
+        let safe = false
+        let attempts = 0
 
-        let x = col * colWidth + (colWidth - size) / 2
-        let y = row * rowHeight + (rowHeight - size) / 2
+        while(!safe && attempts < 200){
+
+            x = Math.random() * (rect.width - size)
+            y = Math.random() * (rowHeight * rows - size)
+
+            safe = !intersects(x,y,size)
+
+            attempts++
+        }
 
         placed.push({x,y,size})
 
