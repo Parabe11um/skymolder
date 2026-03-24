@@ -1150,8 +1150,13 @@ circle{
     }
 
     .thermometer{
-        transform:scale(.8);
-        transform-origin:right center;
+        height:100%;
+        max-width:220px;
+        min-width:140px;
+    }
+
+    .thermo-inner{
+        height:100%;
     }
 
     .drag1{
