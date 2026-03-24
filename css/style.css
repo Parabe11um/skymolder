@@ -991,6 +991,43 @@ circle{
     }
 
 
+    .freeze-scene{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        overflow:hidden;
+    }
+
+    .freeze-field{
+        flex:1;
+        position:relative;
+        overflow:hidden;
+    }
+
+
+    .drop{
+        max-width:10vw;
+    }
+
+    .snow{
+        max-width:10vw;
+    }
+
+    .thermo{
+        width:20vw;
+        min-width:110px;
+        max-width:160px;
+    }
+
+    .thermo-inner{
+        width:100%;
+    }
+
+    .slider{
+        width:100%;
+    }
+
+
 
     .zone-layers{
         left:36%;
