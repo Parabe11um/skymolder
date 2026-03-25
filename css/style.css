@@ -83,10 +83,11 @@ h2{
 }
 
 .factory{
-    bottom:clamp(20px,6vh,80px);
+    bottom:19vh;
     left:50%;
     transform:translateX(-50%);
-    width:min(90vw,1400px);
+    width:90vw;          /* растягиваем на всю ширину */
+    max-width:none;       /* убираем ограничение */
     aspect-ratio:1400/420;
     position:relative;
     z-index:1;
@@ -960,7 +961,7 @@ circle{
 @media (max-width:1800px){
 
     .factory{
-        transform: translateX(-50%) scale(0.7);
+        transform: translateX(-50%);
     }
 
     .hero-brand{
