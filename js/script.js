@@ -151,10 +151,13 @@ window.addEventListener("load", () => {
         let safe = false
         let attempts = 0
 
+        const topOffset = rect.height * 0.25
+        const bottomLimit = rect.height * 0.70
+
         while(!safe && attempts < 200){
 
             x = Math.random() * (rect.width - size)
-            y = Math.random() * (rowHeight * rows - size)
+            y = Math.random() * (bottomLimit - topOffset - size) + topOffset
 
             safe = !intersects(x,y,size)
 
@@ -315,8 +318,18 @@ document.addEventListener("pointerup", () => {
 
         if (overlap && active.dataset.target === zone.dataset.zone) {
 
-            active.style.left = zone.offsetLeft + "px"
-            active.style.top  = zone.offsetTop + "px"
+            const sceneRect = scene.getBoundingClientRect()
+            const zoneRect = zone.getBoundingClientRect()
+
+            active.style.left = (zoneRect.left - sceneRect.left) + "px"
+            active.style.top  = (zoneRect.top - sceneRect.top) + "px"
+
+            active.style.width  = zoneRect.width + "px"
+            active.style.height = zoneRect.height + "px"
+
+            active.style.objectFit = "cover"
+            active.style.animation = "none"
+            active.style.transform = "none"
 
             active.style.pointerEvents = "none"
             active.classList.add("placed")
@@ -500,3 +513,28 @@ window.addEventListener("orientationchange", () => {
     lastMode = currentMode;
     updateRotateWatcher();
 });
+
+
+
+function syncDropZones(){
+
+    const items = document.querySelectorAll(".drag-item")
+
+    items.forEach(item => {
+
+        const target = item.dataset.target
+        const zone = document.querySelector(`[data-zone="${target}"]`)
+
+        if(!zone) return
+
+        const rect = item.getBoundingClientRect()
+
+        zone.style.width = rect.width + "px"
+        zone.style.height = rect.height + "px"
+
+    })
+
+}
+
+window.addEventListener("load", syncDropZones)
+window.addEventListener("resize", syncDropZones)
