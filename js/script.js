@@ -324,9 +324,6 @@ document.addEventListener("pointerup", () => {
             active.style.left = (zoneRect.left - sceneRect.left) + "px"
             active.style.top  = (zoneRect.top - sceneRect.top) + "px"
 
-            active.style.width  = zoneRect.width + "px"
-            active.style.height = zoneRect.height + "px"
-
             active.style.pointerEvents = "none"
             active.style.animation = "none"
             active.classList.add("placed")
