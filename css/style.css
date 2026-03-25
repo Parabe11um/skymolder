@@ -29,9 +29,6 @@ body{
 }
 
 
-:root{
-    --cloud-square:260px;
-}
 
 /* =====================================================
    FONTS
@@ -510,53 +507,37 @@ h2{
    DRAG & INFO
 ===================================================== */
 
-.cloud-scene{
+.fragments{
+    background:linear-gradient(#9DD9FE,#D9EFFF);
+    position:relative;
+    overflow:hidden;
+    display:block;
+}
+
+.fragments-scene{
     position:relative;
     width:100%;
     height:calc(100vh - 80px);
-    min-height:900px;
-    overflow:visible;
+    min-height:760px;
+    overflow:hidden;
 }
 
-.drag-item{
+.fragments-cloud{
     position:absolute;
-    width:260px;
-    height:260px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    width:min(52vw, 760px);
+    opacity:.9;
+    pointer-events:none;
+    z-index:1;
 }
 
-.drag-item img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.drag-item.placed{
-    animation:none !important;
-}
-
-.drag-item.placed img{
+/* зоны */
+.fragments .drop-zone{
     position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    object-position:center;
-    transform:none;
-}
-
-@keyframes floatBox{
-    0%{rotate:-2deg}
-    50%{rotate:2deg}
-    100%{rotate:-2deg}
-}
-
-.drop-zone{
-    position:absolute;
-    width:var(--cloud-square);
-    height:var(--cloud-square);
+    width:220px;
+    height:220px;
     border:4px solid #111;
     box-sizing:border-box;
     display:flex;
@@ -564,148 +545,215 @@ h2{
     justify-content:center;
     text-align:center;
     font-family:'IBM Plex Sans Condensed', sans-serif;
-    font-weight:400;
-    font-size:clamp(22px,1.8vw,36px);
-    line-height:1.1;
+    font-size:clamp(28px,2vw,36px);
+    line-height:1.05;
+    color:#111;
+    background:transparent;
+    z-index:5;
+    transition:.25s;
 }
 
+.fragments .drop-zone.is-hover{
+    background:rgba(255,255,255,.14);
+}
+
+.fragments .drop-zone.is-filled{
+    color:transparent;
+}
+
+/* позиции зон как на макете */
 .zone-layers{
-    left:395px;
-    top:78px;
+    left:29%;
+    top:10%;
 }
 
 .zone-drops{
-    right: 270px;
-    top:403px;
+    right:18%;
+    top:34%;
 }
 
 .zone-surface{
-    left:307px;
-    bottom:92px;
-}
-
-.drag1{
-    left:6%;
-    top:18%;
-}
-
-.drag2{
-    left:6%;
+    left:23%;
     bottom:12%;
 }
 
-.drag3{
-    right:6%;
-    bottom:12%;
-}
-
-
-.info-box{
+/* карточки */
+.drag-card{
     position:absolute;
-    width:420px;
+    width:170px;
+    height:170px;
+    z-index:8;
+    cursor:grab;
+    touch-action:none;
+    user-select:none;
+    animation:floatCard 3s ease-in-out infinite;
+}
+
+.drag-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    pointer-events:none;
+    user-select:none;
+}
+
+.drag-card.is-dragging{
+    cursor:grabbing;
+    animation:none;
+    z-index:30;
+}
+
+.drag-card.is-placed{
+    animation:none;
+    cursor:default;
+}
+
+/* стартовые позиции карточек как на макете */
+.drag-layers{
+    left:7%;
+    top:24%;
+}
+
+.drag-drops{
+    left:8%;
+    bottom:10%;
+}
+
+.drag-surface{
+    right:9%;
+    bottom:10%;
+}
+
+@keyframes floatCard{
+    0%{ transform:translateY(0) rotate(-2deg); }
+    50%{ transform:translateY(-8px) rotate(2deg); }
+    100%{ transform:translateY(0) rotate(-2deg); }
+}
+
+/* инфобоксы */
+.fragments .info-box{
+    position:absolute;
+    width:min(32vw, 420px);
     background:white;
     padding:20px;
     border-radius:20px;
-    font-size:20px;
+    font-size:clamp(14px,1.2vw,20px);
+    line-height:1.3;
     opacity:0;
-    transition:0.4s;
+    transition:.35s;
+    z-index:12;
+}
+
+.fragments .info-box.visible{
+    opacity:1;
 }
 
 .info1{
-    right:8%;
+    right:6%;
     top:18%;
 }
 
 .info2{
     left:20%;
-    top:45%;
+    top:46%;
 }
 
-
-.circle{
+/* кружки */
+.fragments .circle{
     position:absolute;
     border-radius:50%;
-    border:2px solid white;
-    opacity:.5;
-    animation:circleFloat 8s linear infinite;
-    width:4vw;
-    height:4vw;
-    max-width:40px;
-    max-height:40px;
-}
-
-@keyframes circleFloat{
-    from{transform:translateY(0)}
-    to{transform:translateY(-120px)}
-}
-
-
-circle{
-    position:absolute;
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    background:white;
-    opacity:.5;
+    border:2px solid rgba(255,255,255,.75);
+    opacity:.65;
     animation:circleFloat 6s ease-in-out infinite;
+    z-index:2;
 }
 
-.c1{ left:55%; top:30%; animation-delay:0s }
-.c2{ left:60%; top:40%; animation-delay:1s }
-.c3{ left:50%; top:45%; animation-delay:2s }
-.c4{ left:65%; top:35%; animation-delay:3s }
+.c1{ width:82px; height:82px; left:61%; top:9%; }
+.c2{ width:74px; height:74px; left:62%; top:20%; animation-delay:.8s; }
+.c3{ width:48px; height:48px; left:58%; top:24%; animation-delay:1.6s; }
+.c4{ width:146px; height:146px; left:51%; bottom:10%; animation-delay:2.2s; }
 
 @keyframes circleFloat{
-    0%{ transform:translateY(0) }
-    50%{ transform:translateY(-25px) }
-    100%{ transform:translateY(0) }
+    0%{ transform:translateY(0); }
+    50%{ transform:translateY(-18px); }
+    100%{ transform:translateY(0); }
+}
+
+/* адаптив */
+@media (max-width: 1100px){
+    .fragments-scene{
+        min-height:680px;
+    }
+
+    .fragments-cloud{
+        width:min(62vw, 700px);
+    }
+
+    .fragments .drop-zone{
+        width:180px;
+        height:180px;
+        font-size:28px;
+    }
+
+    .drag-card{
+        width:140px;
+        height:140px;
+    }
+}
+
+@media (max-width: 900px){
+    .fragments-scene{
+        min-height:620px;
+    }
+
+    .fragments-cloud{
+        width:min(72vw, 620px);
+    }
+
+    .fragments .drop-zone{
+        width:150px;
+        height:150px;
+        font-size:24px;
+    }
+
+    .drag-card{
+        width:120px;
+        height:120px;
+    }
+
+    .zone-layers{
+        left:24%;
+        top:8%;
+    }
+
+    .zone-drops{
+        right:9%;
+        top:37%;
+    }
+
+    .zone-surface{
+        left:18%;
+        bottom:12%;
+    }
+
+    .drag-layers{
+        left:2%;
+        top:20%;
+    }
+
+    .drag-drops{
+        left:2%;
+        bottom:8%;
+    }
+
+    .drag-surface{
+        right:2%;
+        bottom:8%;
+    }
 }
 
 
-.drag-item{
-    animation:floatBox 3s ease-in-out infinite;
-    z-index:5;
-
-}
-
-.drag-item:hover{
-    animation:none;
-}
-
-@keyframes floatBox{
-    0%{ transform:rotate(-2deg) }
-    50%{ transform:rotate(2deg) }
-    100%{ transform:rotate(-2deg) }
-}
-
-.fragments{
-    background:linear-gradient(#9DD9FE,#D9EFFF);
-}
-
-.info-box{
-    opacity:0;
-    transition:0.5s;
-    z-index:20;
-    width:28vw;
-    max-width:420px;
-
-    font-size:clamp(14px,1.2vw,20px);
-}
-
-.info-box.visible{
-    opacity:1;
-}
-
-.cloud-center{
-    position:absolute;
-    left:50%;
-    top:52%;
-    transform:translate(-50%,-50%);
-    width:1100px;
-    max-width:none;
-    pointer-events:none;
-    opacity:0.9;
-}
 
 
 /* =====================================================
@@ -774,38 +822,72 @@ circle{
     opacity:.95;
     animation:rainFall linear forwards;
 }
-
 .rain-title{
     position:absolute;
-    top:50%;
+    top:60%;
     left:50%;
     transform:translate(-50%, -50%);
     color:#98C8FF;
     font-weight:400;
-    font-size:clamp(48px,7vw,110px);
+    font-size:clamp(36px, 4vw, 72px);
     z-index:2;
     text-align:center;
+    white-space:nowrap;
 }
+
+.factory-wrap{
+    position:absolute;
+    bottom:0;
+    z-index:12;
+    cursor:pointer;
+}
+
+.factory-left-wrap{
+    left:0;
+    height:48vh;
+}
+
+.factory-right-wrap{
+    right:0;
+    height:48vh;
+}
+
 .factory-left,
 .factory-right{
-    z-index:3;
+    display:block;
+    height:100%;
+    width:auto;
+    transition:filter .3s ease, opacity .3s ease;
+}
+
+.factory-label{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    opacity:0;
     pointer-events:none;
+    transition:opacity .3s ease;
 }
 
-.factory-left{
-    position:absolute;
-    bottom:0;
-    left:-2vw;
-    width:32vw;
-    max-width:none;
+.factory-wrap:hover > .factory-left,
+.factory-wrap:hover > .factory-right{
+    opacity:0;
 }
 
-.factory-right{
-    position:absolute;
-    bottom:0;
-    right:-2vw;
-    width:32vw;
-    max-width:none;
+.factory-left-wrap:hover .left-label,
+.factory-right-wrap:hover .right-label{
+    opacity:1;
+}
+
+.right-label{
+    inset: 8% 0;
+}
+
+.left-label{
+    inset: 5% 1%;
+    width: 93%;
+    height: 90%;
 }
 
 /* =====================================================
@@ -1037,6 +1119,11 @@ circle{
 
 @media (max-width:900px) and (orientation:landscape){
 
+
+    :root{
+        --cloud-square:16vw;
+    }
+
     .cloud-scene{
         height:calc(100vh - 80px);
         touch-action:none;
@@ -1182,13 +1269,8 @@ circle{
     }
 
     .drag-item{
-        width:110px;
-        height:110px;
-    }
-
-    .drop-zone{
-        width:16vw;
-        height:16vw;
+        width:var(--cloud-square);
+        height:var(--cloud-square);
     }
 
 }
@@ -1214,6 +1296,3 @@ circle{
     background-size:contain;
     pointer-events:none;
 }
-
-
-

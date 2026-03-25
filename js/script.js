@@ -257,111 +257,138 @@ if (slider) {
     });
 }
 
-const scene = document.querySelector(".cloud-scene")
-const items = document.querySelectorAll(".drag-item")
-const zones = document.querySelectorAll(".drop-zone")
-
-let active = null
-let shiftX = 0
-let shiftY = 0
-
-items.forEach(item => {
-    item.addEventListener("pointerdown", (e) => {
-
-        e.preventDefault()
-        document.body.style.overflow="hidden"
-
-        if (item.classList.contains("placed")) return
-
-        active = item
-
-        const rect = item.getBoundingClientRect()
-        const sceneRect = scene.getBoundingClientRect()
-
-        shiftX = e.clientX - rect.left
-        shiftY = e.clientY - rect.top
-
-        item.style.left = (rect.left - sceneRect.left) + "px"
-        item.style.top = (rect.top - sceneRect.top) + "px"
-        item.style.right = "auto"
-        item.style.bottom = "auto"
-
-        item.style.zIndex = 10
-        item.style.animation = "none"
-
-        e.preventDefault()
-    })
-})
 
 
-document.addEventListener("pointerup", () => {
 
-    document.body.style.overflow=""
 
-    if (!active) return
 
-    let correct = false
+const fragmentsScene = document.querySelector(".fragments-scene");
 
-    zones.forEach(zone => {
+if (fragmentsScene) {
+    const cards = fragmentsScene.querySelectorAll(".drag-card");
+    const zones = fragmentsScene.querySelectorAll(".drop-zone");
 
-        const z = zone.getBoundingClientRect()
-        const i = active.getBoundingClientRect()
+    let activeCard = null;
+    let shiftX = 0;
+    let shiftY = 0;
 
-        const centerX = i.left + i.width / 2
-        const centerY = i.top + i.height / 2
+    cards.forEach((card) => {
+        card.addEventListener("pointerdown", (e) => {
+            if (card.classList.contains("is-placed")) return;
 
-        const overlap =
-            centerX > z.left &&
-            centerX < z.right &&
-            centerY > z.top &&
-            centerY < z.bottom
+            activeCard = card;
+            card.classList.add("is-dragging");
 
-        if (overlap && active.dataset.target === zone.dataset.zone) {
+            const cardRect = card.getBoundingClientRect();
+            shiftX = e.clientX - cardRect.left;
+            shiftY = e.clientY - cardRect.top;
 
-            const sceneRect = scene.getBoundingClientRect()
-            const zoneRect = zone.getBoundingClientRect()
+            card.setPointerCapture?.(e.pointerId);
+            e.preventDefault();
+        });
+    });
 
-            active.style.left = (zoneRect.left - sceneRect.left) + "px"
-            active.style.top  = (zoneRect.top - sceneRect.top) + "px"
+    document.addEventListener("pointermove", (e) => {
+        if (!activeCard) return;
 
-            active.style.pointerEvents = "none"
-            active.style.animation = "none"
-            active.classList.add("placed")
+        const sceneRect = fragmentsScene.getBoundingClientRect();
 
-            correct = true
+        let left = e.clientX - sceneRect.left - shiftX;
+        let top = e.clientY - sceneRect.top - shiftY;
+
+        const maxLeft = sceneRect.width - activeCard.offsetWidth;
+        const maxTop = sceneRect.height - activeCard.offsetHeight;
+
+        left = Math.max(0, Math.min(left, maxLeft));
+        top = Math.max(0, Math.min(top, maxTop));
+
+        activeCard.style.left = `${left}px`;
+        activeCard.style.top = `${top}px`;
+        activeCard.style.right = "auto";
+        activeCard.style.bottom = "auto";
+    }, { passive: false });
+
+    document.addEventListener("pointerup", () => {
+        if (!activeCard) return;
+
+        let placedCorrectly = false;
+
+        zones.forEach((zone) => {
+            zone.classList.remove("is-hover");
+
+            const zoneRect = zone.getBoundingClientRect();
+            const cardRect = activeCard.getBoundingClientRect();
+
+            const centerX = cardRect.left + cardRect.width / 2;
+            const centerY = cardRect.top + cardRect.height / 2;
+
+            const inside =
+                centerX > zoneRect.left &&
+                centerX < zoneRect.right &&
+                centerY > zoneRect.top &&
+                centerY < zoneRect.bottom;
+
+            if (inside && activeCard.dataset.target === zone.dataset.zone) {
+                const sceneRect = fragmentsScene.getBoundingClientRect();
+
+                const snapWidth = zoneRect.width;
+                const snapHeight = zoneRect.height;
+
+                activeCard.style.width = `${snapWidth}px`;
+                activeCard.style.height = `${snapHeight}px`;
+
+                activeCard.style.left = `${zoneRect.left - sceneRect.left}px`;
+                activeCard.style.top = `${zoneRect.top - sceneRect.top}px`;
+
+                activeCard.classList.remove("is-dragging");
+                activeCard.classList.add("is-placed");
+                zone.classList.add("is-filled");
+
+                activeCard.style.pointerEvents = "none";
+                placedCorrectly = true;
+            }
+        });
+
+        if (!placedCorrectly) {
+            activeCard.classList.remove("is-dragging");
         }
 
-    })
-
-    if (correct) {
-
-        const placedNow = document.querySelectorAll(".drag-item.placed").length
-
-        if (placedNow === 3) {
-
-            document.querySelector(".info1").classList.add("visible")
-            document.querySelector(".info2").classList.add("visible")
-
+        const placedCount = fragmentsScene.querySelectorAll(".drag-card.is-placed").length;
+        if (placedCount === 3) {
+            fragmentsScene.querySelector(".info1")?.classList.add("visible");
+            fragmentsScene.querySelector(".info2")?.classList.add("visible");
         }
-    }
 
-    active.style.zIndex = 1
-    active = null
+        activeCard = null;
+    });
 
-})
+    document.addEventListener("pointermove", () => {
+        if (!activeCard) return;
 
-document.addEventListener("pointermove", (e) => {
+        zones.forEach((zone) => {
+            const zoneRect = zone.getBoundingClientRect();
+            const cardRect = activeCard.getBoundingClientRect();
 
-    if (!active) return
+            const centerX = cardRect.left + cardRect.width / 2;
+            const centerY = cardRect.top + cardRect.height / 2;
 
-    e.preventDefault()   // блокируем scroll
+            const inside =
+                centerX > zoneRect.left &&
+                centerX < zoneRect.right &&
+                centerY > zoneRect.top &&
+                centerY < zoneRect.bottom;
 
-    const sceneRect = scene.getBoundingClientRect()
+            zone.classList.toggle(
+                "is-hover",
+                inside && activeCard.dataset.target === zone.dataset.zone
+            );
+        });
+    }, { passive: true });
+}
 
-    active.style.left = (e.clientX - sceneRect.left - shiftX) + "px"
-    active.style.top  = (e.clientY - sceneRect.top  - shiftY) + "px"
 
-}, { passive:false })
+
+
 
 
     const rainCloud = document.querySelector(".rain-top-cloud");
@@ -507,5 +534,3 @@ window.addEventListener("orientationchange", () => {
     lastMode = currentMode;
     updateRotateWatcher();
 });
-
-tListener("resize", syncDropZones)
