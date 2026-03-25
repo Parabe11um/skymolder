@@ -525,7 +525,7 @@ h2{
     cursor:grab;
     z-index:5;
     animation:floatBox 3s ease-in-out infinite;
-    background-size:contain;
+    background-size:100% 100%;
     background-position:center;
     background-repeat:no-repeat;
 }
