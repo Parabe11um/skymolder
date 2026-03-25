@@ -327,11 +327,8 @@ document.addEventListener("pointerup", () => {
             active.style.width  = zoneRect.width + "px"
             active.style.height = zoneRect.height + "px"
 
-            active.style.objectFit = "cover"
-            active.style.animation = "none"
-            active.style.transform = "none"
-
             active.style.pointerEvents = "none"
+            active.style.animation = "none"
             active.classList.add("placed")
 
             correct = true
@@ -514,27 +511,4 @@ window.addEventListener("orientationchange", () => {
     updateRotateWatcher();
 });
 
-
-
-function syncDropZones(){
-
-    const items = document.querySelectorAll(".drag-item")
-
-    items.forEach(item => {
-
-        const target = item.dataset.target
-        const zone = document.querySelector(`[data-zone="${target}"]`)
-
-        if(!zone) return
-
-        const rect = item.getBoundingClientRect()
-
-        zone.style.width = rect.width + "px"
-        zone.style.height = rect.height + "px"
-
-    })
-
-}
-
-window.addEventListener("load", syncDropZones)
-window.addEventListener("resize", syncDropZones)
+tListener("resize", syncDropZones)
