@@ -514,6 +514,20 @@ h2{
     overflow: hidden;
 }
 
+.fragments-scene::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(300px, 60vw, 800px);
+    height: 70%;
+    background: url('../img/Frame_282.png') no-repeat center;
+    background-size: contain;
+    z-index: 1;
+    pointer-events: none;
+}
+
 .drop-zone {
     width: 160px;
     height: 160px;
