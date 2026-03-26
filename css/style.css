@@ -1087,7 +1087,7 @@ h2{
         width:20vw;
         min-width:110px;
         max-width:160px;
-        height:100%;
+        height:94%;
         flex-shrink:0;
     }
 
@@ -1149,7 +1149,7 @@ h2{
 
     .bubbles{
         top:80px;
-        height:50vh;
+        height: 80vh;
         overflow:hidden;
     }
 
@@ -1170,34 +1170,20 @@ h2{
         transform:scale(.75);
     }
 
-    .thermometer{
-        height: 73%;
-        max-width: 220px;
-        min-width: 140px;
-    }
-
     .thermo-inner{
         height:100%;
     }
 
-    .drag1{
-        left:2%;
-        top:8%;
-    }
+    .drag-layers  { left: 3%; top: 12%; }
+    .drag-drops   { left: 3%; bottom: 8%; }
+    .drag-surface { right: 3%; bottom: 8%; }
 
-    .drag2{
-        left:2%;
-        bottom:8%;
-    }
 
-    .drag3{
-        right:2%;
-        bottom:8%;
-    }
-
-    .drag-item{
-        width:var(--cloud-square);
-        height:var(--cloud-square);
+    .drag-card, .drop-zone {
+        width: 16vw !important;
+        height: 16vw !important;
+        min-width: 90px;
+        min-height: 90px;
     }
 
 }

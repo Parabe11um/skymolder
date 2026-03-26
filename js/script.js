@@ -151,8 +151,9 @@ window.addEventListener("load", () => {
         let safe = false
         let attempts = 0
 
-        const topOffset = rect.height * 0.25
-        const bottomLimit = rect.height * 0.70
+        const isLandscapeMode = window.innerWidth > window.innerHeight;
+        const topOffset = isLandscapeMode ? rect.height * 0.05 : rect.height * 0.25;
+        const bottomLimit = isLandscapeMode ? rect.height * 0.95 : rect.height * 0.70;
 
         while(!safe && attempts < 200){
 
