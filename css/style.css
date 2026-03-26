@@ -1174,9 +1174,9 @@ h2{
         height:100%;
     }
 
-    .drag-layers  { left: 3%; top: 12%; }
-    .drag-drops   { left: 3%; bottom: 8%; }
-    .drag-surface { right: 3%; bottom: 8%; }
+    .drag-layers  { left: -27%; top: -38%; }
+    .drag-drops   { left: -47%; bottom: 48%; }
+    .drag-surface { right: 15%; bottom: 19%; }
 
 
     .drag-card, .drop-zone {
