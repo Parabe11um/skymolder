@@ -35,7 +35,6 @@ body{
 ===================================================== */
 
 
-/* cyrillic-ext */
 @font-face {
     font-family: 'IBM Plex Sans Condensed';
     font-style: normal;
@@ -45,7 +44,7 @@ body{
     unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
-/* latin-ext */
+
 @font-face {
     font-family: 'IBM Plex Sans Condensed';
     font-style: normal;
@@ -83,8 +82,8 @@ h2{
     bottom:19vh;
     left:50%;
     transform:translateX(-50%);
-    width:90vw;          /* растягиваем на всю ширину */
-    max-width:none;       /* убираем ограничение */
+    width:90vw;
+    max-width:none;
     aspect-ratio:1400/420;
     position:relative;
     z-index:1;
@@ -198,13 +197,10 @@ h2{
     left:0;
     width:100%;
     height:80px;
-
     background:#0B2953;
-
     display:flex;
     align-items:center;
     justify-content:flex-end;
-
     padding-right:60px;
 }
 
@@ -513,36 +509,19 @@ h2{
     position: relative;
     width: 100%;
     height: 100vh;
-    background: #A0DAFF; /* Фоновый цвет на случай если картинка не прогрузится */
+    background: #A0DAFF;
     z-index: 1;
     overflow: hidden;
 }
 
-.fragments-scene::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(300px, 60vw, 800px); /* Делаем его чуть более адаптивным */
-    height: 70%;
-    background: url('../img/Frame_282.png') no-repeat center;
-    background-size: contain;
-    z-index: 1;
-    pointer-events: none;
-}
-
 .drop-zone {
-    /* Базовые стили.position ЗАДАЕТСЯ ВНИЗУ ЧЕРЕЗ КЛАССЫ, НЕ ЗДЕСЬ */
     width: 160px;
     height: 160px;
     border: 2px solid #000;
     box-sizing: border-box;
-    overflow: hidden; /* КРИТИЧНО: Чтобы картинка не вылезала за рамку */
+    overflow: hidden;
     z-index: 5;
     background: rgba(255, 255, 255, 0.1);
-
-    /* Текст внутри рамки */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -553,20 +532,16 @@ h2{
 }
 
 .drop-zone .drag-card.is-placed {
-    position: relative !important; /* Убираем absolute, чтобы не конфликтовать */
+    position: relative !important;
     width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
 }
 
 .drop-zone .drag-card.is-placed img {
-    /* Принудительно задаем размер картинке в пикселях */
     width: 200px !important;
     height: 200px !important;
-
-    /* КРИТИЧНО: object-fit: cover Сделает их одинаковыми визуально */
     object-fit: cover !important;
-
     display: block !important;
 }
 
@@ -578,7 +553,7 @@ h2{
 .drag-card:not(.is-placed) img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Для предпросмотра оставляем cover */
+    object-fit: cover;
 }
 
 .drop-zone.is-filled {
@@ -586,7 +561,6 @@ h2{
     font-size: 0 !important;
 }
 
-/* САМИ КАРТОЧКИ (До перетаскивания) */
 .drag-card {
     position: absolute;
     width: 160px;
@@ -597,7 +571,7 @@ h2{
 }
 
 .fragments .info-box {
-    width: min(320px, 40vw) !important; /* Жестко ограничиваем ширину */
+    width: min(320px, 40vw) !important;
     max-width: none !important;
     font-size: clamp(12px, 1.1vw, 16px) !important;
     padding: 15px !important;
@@ -637,7 +611,6 @@ h2{
     z-index: 10;
 }
 
-/* Позиции по макету */
 .info1 {
     top: 20%;
     right: 5%;
@@ -653,31 +626,28 @@ h2{
     visibility: visible;
 }
 
-/* Координаты зон приемников (должны быть в HTML: zone-layers и т.д.) */
 [data-zone] {
-    position: absolute; /* Координаты работают только с absolute */
+    position: absolute;
 }
 
-/* Координаты для мобилок и десктопа (как вы просили) */
 @media (min-width: 901px) {
+
     .zone-layers  { left: 35%; top: 15%; }
     .zone-drops   { left: 60%; top: 40%; }
     .zone-surface { left: 30%; top: 65%; }
-
     .drag-layers  { left: 10%; top: 20%; }
     .drag-drops   { left: 10%; bottom: 15%; }
     .drag-surface { right: 10%; bottom: 15%; }
-
-
     .is-filled .drag-drops { left: -39%!important; bottom: 27%!important; }
     .is-filled .drag-surface { left: -24%!important; bottom: 27%!important; }
     .is-filled .drag-layers { left: -20%!important; top: -30%!important; }
+
 }
 
 @media (max-width: 900px) {
+
     .drag-card { width: 110px; height: 110px; }
     .drop-zone { width: 120px; height: 120px; font-size: 12px;}
-
     .zone-layers  { left: 15%; top: 10%; }
     .zone-drops   { right: 15%; top: 35%; }
     .zone-surface { left: 20%; bottom: 15%; }
@@ -891,23 +861,19 @@ h2{
         transform:scale(.8);
     }
 
-    /* облако */
     .rain-top-cloud{
         height:30vh;
     }
 
-    /* капли крупнее */
     .raindrop{
         width:4vw;
     }
 
-    /* текст */
     .rain-title{
         font-size:32px;
         bottom:10vh;
     }
 
-    /* заводы меньше */
     .factory-left,
     .factory-right{
         width:40vw;
@@ -1026,7 +992,6 @@ h2{
     display:none;
 }
 
-/* показываем только на телефоне */
 @media (max-width:900px) and (orientation:portrait){
 
     .rotate-device{
@@ -1098,7 +1063,6 @@ h2{
     .slider{
         width:100%;
     }
-
 
 
     .zone-layers{
