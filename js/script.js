@@ -319,6 +319,7 @@ if (fragmentsScene) {
             const zoneRect = zone.getBoundingClientRect();
             const cardRect = activeCard.getBoundingClientRect();
 
+            // Проверяем центр карточки
             const centerX = cardRect.left + cardRect.width / 2;
             const centerY = cardRect.top + cardRect.height / 2;
 
@@ -329,28 +330,30 @@ if (fragmentsScene) {
                 centerY < zoneRect.bottom;
 
             if (inside && activeCard.dataset.target === zone.dataset.zone) {
-                const sceneRect = fragmentsScene.getBoundingClientRect();
 
-                const snapWidth = zoneRect.width;
-                const snapHeight = zoneRect.height;
+                // 1. ОЧИЩАЕМ атрибут style полностью. Убираем left, top, transform в пикселях.
+                activeCard.removeAttribute('style');
 
-                activeCard.style.width = `${snapWidth}px`;
-                activeCard.style.height = `${snapHeight}px`;
+                // 2. Перемещаем карточку в зону в DOM
+                zone.appendChild(activeCard);
 
-                activeCard.style.left = `${zoneRect.left - sceneRect.left}px`;
-                activeCard.style.top = `${zoneRect.top - sceneRect.top}px`;
-
+                // 3. Обновляем классы
                 activeCard.classList.remove("is-dragging");
                 activeCard.classList.add("is-placed");
                 zone.classList.add("is-filled");
 
+                // 4. Запрещаем дальнейшее перетаскивание
                 activeCard.style.pointerEvents = "none";
+
                 placedCorrectly = true;
             }
         });
 
         if (!placedCorrectly) {
+            // Если не попали — сбрасываем состояние перетаскивания
             activeCard.classList.remove("is-dragging");
+            // Если нужно, чтобы карточка возвращалась на место при промахе,
+            // здесь нужно добавить сброс координат (left/top) к начальным.
         }
 
         const placedCount = fragmentsScene.querySelectorAll(".drag-card.is-placed").length;

@@ -308,7 +308,7 @@ h2{
     align-items:stretch;
     grid-template-columns: 1fr minmax(160px,220px);
     width:100%;
-    height:calc(100vh - 80px);
+    min-height:calc(100vh - 80px);
 }
 
 .freeze-field{
@@ -507,254 +507,181 @@ h2{
    DRAG & INFO
 ===================================================== */
 
-.fragments{
-    background:linear-gradient(#9DD9FE,#D9EFFF);
-    position:relative;
-    overflow:hidden;
-    display:block;
+
+
+.fragments-scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #A0DAFF; /* Фоновый цвет на случай если картинка не прогрузится */
+    z-index: 1;
+    overflow: hidden;
 }
 
-.fragments-scene{
-    position:relative;
-    width:100%;
-    height:calc(100vh - 80px);
-    min-height:760px;
-    overflow:hidden;
+.fragments-scene::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(300px, 60vw, 800px); /* Делаем его чуть более адаптивным */
+    height: 70%;
+    background: url('../img/Frame_282.png') no-repeat center;
+    background-size: contain;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.fragments-cloud{
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%, -50%);
-    width:min(52vw, 760px);
-    opacity:.9;
-    pointer-events:none;
-    z-index:1;
+.drop-zone {
+    /* Базовые стили.position ЗАДАЕТСЯ ВНИЗУ ЧЕРЕЗ КЛАССЫ, НЕ ЗДЕСЬ */
+    width: 160px;
+    height: 160px;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    overflow: hidden; /* КРИТИЧНО: Чтобы картинка не вылезала за рамку */
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.1);
+
+    /* Текст внутри рамки */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000;
+    font-size: 14px;
+    padding: 10px;
 }
 
-/* зоны */
-.fragments .drop-zone{
-    position:absolute;
-    width:220px;
-    height:220px;
-    border:4px solid #111;
-    box-sizing:border-box;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    font-family:'IBM Plex Sans Condensed', sans-serif;
-    font-size:clamp(28px,2vw,36px);
-    line-height:1.05;
-    color:#111;
-    background:transparent;
-    z-index:5;
-    transition:.25s;
+.drop-zone .drag-card.is-placed {
+    position: relative !important; /* Убираем absolute, чтобы не конфликтовать */
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
 }
 
-.fragments .drop-zone.is-hover{
-    background:rgba(255,255,255,.14);
-}
+.drop-zone .drag-card.is-placed img {
+    /* Принудительно задаем размер картинке в пикселях */
+    width: 200px !important;
+    height: 200px !important;
 
-.fragments .drop-zone.is-filled{
-    color:transparent;
-}
+    /* КРИТИЧНО: object-fit: cover Сделает их одинаковыми визуально */
+    object-fit: cover !important;
 
-/* позиции зон как на макете */
-.zone-layers{
-    left:29%;
-    top:10%;
-}
-
-.zone-drops{
-    right:18%;
-    top:34%;
-}
-
-.zone-surface{
-    left:23%;
-    bottom:12%;
-}
-
-/* карточки */
-.drag-card{
-    position:absolute;
-    width:170px;
-    height:170px;
-    z-index:8;
-    cursor:grab;
-    touch-action:none;
-    user-select:none;
-    animation:floatCard 3s ease-in-out infinite;
-}
-
-.drag-card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    pointer-events:none;
-    user-select:none;
-}
-
-.drag-card.is-dragging{
-    cursor:grabbing;
-    animation:none;
-    z-index:30;
-}
-
-.drag-card.is-placed{
-    animation:none;
-    cursor:default;
-}
-
-/* стартовые позиции карточек как на макете */
-.drag-layers{
-    left:7%;
-    top:24%;
-}
-
-.drag-drops{
-    left:8%;
-    bottom:10%;
-}
-
-.drag-surface{
-    right:9%;
-    bottom:10%;
-}
-
-@keyframes floatCard{
-    0%{ transform:translateY(0) rotate(-2deg); }
-    50%{ transform:translateY(-8px) rotate(2deg); }
-    100%{ transform:translateY(0) rotate(-2deg); }
-}
-
-/* инфобоксы */
-.fragments .info-box{
-    position:absolute;
-    width:min(32vw, 420px);
-    background:white;
-    padding:20px;
-    border-radius:20px;
-    font-size:clamp(14px,1.2vw,20px);
-    line-height:1.3;
-    opacity:0;
-    transition:.35s;
-    z-index:12;
-}
-
-.fragments .info-box.visible{
-    opacity:1;
-}
-
-.info1{
-    right:6%;
-    top:18%;
-}
-
-.info2{
-    left:20%;
-    top:46%;
-}
-
-/* кружки */
-.fragments .circle{
-    position:absolute;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,.75);
-    opacity:.65;
-    animation:circleFloat 6s ease-in-out infinite;
-    z-index:2;
-}
-
-.c1{ width:82px; height:82px; left:61%; top:9%; }
-.c2{ width:74px; height:74px; left:62%; top:20%; animation-delay:.8s; }
-.c3{ width:48px; height:48px; left:58%; top:24%; animation-delay:1.6s; }
-.c4{ width:146px; height:146px; left:51%; bottom:10%; animation-delay:2.2s; }
-
-@keyframes circleFloat{
-    0%{ transform:translateY(0); }
-    50%{ transform:translateY(-18px); }
-    100%{ transform:translateY(0); }
-}
-
-/* адаптив */
-@media (max-width: 1100px){
-    .fragments-scene{
-        min-height:680px;
-    }
-
-    .fragments-cloud{
-        width:min(62vw, 700px);
-    }
-
-    .fragments .drop-zone{
-        width:180px;
-        height:180px;
-        font-size:28px;
-    }
-
-    .drag-card{
-        width:140px;
-        height:140px;
-    }
-}
-
-@media (max-width: 900px){
-    .fragments-scene{
-        min-height:620px;
-    }
-
-    .fragments-cloud{
-        width:min(72vw, 620px);
-    }
-
-    .fragments .drop-zone{
-        width:150px;
-        height:150px;
-        font-size:24px;
-    }
-
-    .drag-card{
-        width:120px;
-        height:120px;
-    }
-
-    .zone-layers{
-        left:24%;
-        top:8%;
-    }
-
-    .zone-drops{
-        right:9%;
-        top:37%;
-    }
-
-    .zone-surface{
-        left:18%;
-        bottom:12%;
-    }
-
-    .drag-layers{
-        left:2%;
-        top:20%;
-    }
-
-    .drag-drops{
-        left:2%;
-        bottom:8%;
-    }
-
-    .drag-surface{
-        right:2%;
-        bottom:8%;
-    }
+    display: block !important;
 }
 
 
+.drag-card:not(.is-placed) {
+    width: 200px;
+    height: 200px;
+}
+.drag-card:not(.is-placed) img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Для предпросмотра оставляем cover */
+}
 
+.drop-zone.is-filled {
+    color: transparent !important;
+    font-size: 0 !important;
+}
+
+/* САМИ КАРТОЧКИ (До перетаскивания) */
+.drag-card {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    cursor: grab;
+    z-index: 20;
+    touch-action: none;
+}
+
+.fragments .info-box {
+    width: min(320px, 40vw) !important; /* Жестко ограничиваем ширину */
+    max-width: none !important;
+    font-size: clamp(12px, 1.1vw, 16px) !important;
+    padding: 15px !important;
+    border-radius: 15px !important;
+    line-height: 1.3 !important;
+}
+
+.drag-card img {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.drag-card.is-dragging {
+    cursor: grabbing;
+    z-index: 1000;
+}
+
+[data-zone="layers"]  { left: 35%; top: 15%; }
+[data-zone="drops"]   { left: 60%; top: 40%; }
+[data-zone="surface"] { left: 30%; top: 65%; }
+
+
+
+.info-box {
+    position: absolute;
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 300px;
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s ease;
+    z-index: 10;
+}
+
+/* Позиции по макету */
+.info1 {
+    top: 20%;
+    right: 5%;
+}
+
+.info2 {
+    bottom: 15%;
+    left: 5%;
+}
+
+.info-box.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Координаты зон приемников (должны быть в HTML: zone-layers и т.д.) */
+[data-zone] {
+    position: absolute; /* Координаты работают только с absolute */
+}
+
+/* Координаты для мобилок и десктопа (как вы просили) */
+@media (min-width: 901px) {
+    .zone-layers  { left: 35%; top: 15%; }
+    .zone-drops   { left: 60%; top: 40%; }
+    .zone-surface { left: 30%; top: 65%; }
+
+    .drag-layers  { left: 10%; top: 20%; }
+    .drag-drops   { left: 10%; bottom: 15%; }
+    .drag-surface { right: 10%; bottom: 15%; }
+
+
+    .is-filled .drag-drops { left: -39%!important; bottom: 27%!important; }
+    .is-filled .drag-surface { left: -24%!important; bottom: 27%!important; }
+    .is-filled .drag-layers { left: -20%!important; top: -30%!important; }
+}
+
+@media (max-width: 900px) {
+    .drag-card { width: 110px; height: 110px; }
+    .drop-zone { width: 120px; height: 120px; font-size: 12px;}
+
+    .zone-layers  { left: 15%; top: 10%; }
+    .zone-drops   { right: 15%; top: 35%; }
+    .zone-surface { left: 20%; bottom: 15%; }
+}
 
 /* =====================================================
    RAIN SCREEN
