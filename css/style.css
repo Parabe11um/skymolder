@@ -826,6 +826,76 @@ h2{
 }
 
 
+
+@keyframes cardSwing {
+
+    0%   { transform: rotate(-3deg) translateY(0px); }
+    50%  { transform: rotate(3deg) translateY(-6px); }
+    100% { transform: rotate(-3deg) translateY(0px); }
+
+}
+
+.drag-card:not(.is-dragging):not(.is-placed) {
+    animation: cardSwing 3s ease-in-out infinite;
+    transform-origin: center;
+}
+
+
+.circle{
+    position:absolute;
+    border:2px solid rgba(255,255,255,0.6);
+    border-radius:50%;
+    animation: circleFloat 6s ease-in-out infinite;
+}
+
+
+
+
+.c2{
+    width:90px;
+    height:90px;
+    right:22%;
+    top:30%;
+}
+
+.c3{
+    width:110px;
+    height:110px;
+    left:28%;
+    bottom:20%;
+}
+
+.c4{
+    width:140px;
+    height:140px;
+    right:35%;
+    bottom:12%;
+}
+
+
+
+@keyframes circleFloat {
+
+    0%{
+        transform: translateY(0px) scale(1);
+    }
+
+    50%{
+        transform: translateY(-18px) scale(1.05);
+    }
+
+    100%{
+        transform: translateY(0px) scale(1);
+    }
+
+}
+
+
+.drag-card.is-dragging{
+    animation:none;
+}
+
+
 /* =====================================================
    ADAPTIVE
 ===================================================== */
