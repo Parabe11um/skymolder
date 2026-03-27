@@ -407,7 +407,7 @@ h2{
 .tzero{
     position: absolute;
     top: 50%;
-    right: 54px;
+    right: 10%;
     transform: translateY(-50%);
 }
 
