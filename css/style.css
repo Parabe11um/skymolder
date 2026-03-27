@@ -742,12 +742,14 @@ h2{
 }
 
 .factory-left-wrap{
-    left:0;
+    left: -2%;
+    bottom: -3%;
     height:48vh;
 }
 
 .factory-right-wrap{
-    right:0;
+    right: -2%;
+    bottom: -2%;
     height:48vh;
 }
 
@@ -784,7 +786,7 @@ h2{
 }
 
 .left-label{
-    inset: 5% 1%;
+    inset: 5% 3%;
     width: 93%;
     height: 90%;
 }
