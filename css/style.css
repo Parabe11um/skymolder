@@ -1171,16 +1171,3 @@ h2{
     min-height:70vh;
     overflow:hidden;
 }
-
-.freeze-field::after{
-    content:"";
-    position:absolute;
-    left:50%;
-    bottom:-6vh;
-    transform:translateX(-50%);
-    width:130%;
-    height:40vh;
-    background:url("/img/Frame_276.png") no-repeat center bottom;
-    background-size:contain;
-    pointer-events:none;
-}
