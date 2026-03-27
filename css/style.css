@@ -1128,6 +1128,10 @@ h2{
         max-width:160px;
         height:94%;
         flex-shrink:0;
+        right:-13% !important;
+        left:auto !important;
+        margin:0 !important;
+        transform:none !important;
     }
 
     .thermo-inner{
